@@ -48,6 +48,7 @@ public class EditingPanel extends ResizablePanel{
 //    private JTextArea masterOutputArea; // the output area of the shell
     JideSplitPane splitPane;
     String filePath;
+    private AbstractButton runButton;
     
     public EditingPanel(String filePath, String title){
         this.filePath = filePath;
@@ -147,7 +148,7 @@ public class EditingPanel extends ResizablePanel{
     private void initCodeEditor(String fileName) {
         codeEditor = new CodeEditor();  
         codeEditor.setFileName(fileName);
-        codeEditor.setTokenMarker(new XQtTokemMarker());
+        codeEditor.setTokenMarker(new XQtTokenMarker());
         LanguageSpec languageSpec = LanguageSpecManager.getInstance().getLanguageSpec("XQt");
         if (languageSpec != null) {
             languageSpec.configureCodeEditor(codeEditor);
@@ -175,7 +176,7 @@ public class EditingPanel extends ResizablePanel{
         JLabel codeMessage = new JLabel("Coding errors or messages related to the current code file go here");
         codeMessage.setForeground(Color.RED);
         codeStatusBar.add(codeMessage, 0);
-        AbstractButton runButton = ShellCommandBarFactory.createRunButton();
+        runButton = ShellCommandBarFactory.createRunButton();
         runButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -241,6 +242,7 @@ public class EditingPanel extends ResizablePanel{
                 outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
             } catch (Exception ignore) {
             }
+            runButton.setEnabled(true);
         }    
     }
     
@@ -282,6 +284,7 @@ public class EditingPanel extends ResizablePanel{
 //        }
 //    };
     private void run(){
+        runButton.setEnabled(false);
         initDataFrame();
 //        try {
 //            //this.revalidate();

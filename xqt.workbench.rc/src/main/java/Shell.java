@@ -78,14 +78,16 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
                         //mySingleClick(selRow, selPath);
                     }
                     else if(e.getClickCount() == 2) {
-                        myDoubleClick(selRow, selPath);
+                        openDocumentDoubleClick(selRow, selPath);
                     }
                 }
             }
-            private void myDoubleClick(int selRow, TreePath selPath) {
-                String fileToOpen = selPath.getLastPathComponent().toString();
+            private void openDocumentDoubleClick(int selRow, TreePath selPath) {
+                String fileToOpen = selPath.getLastPathComponent().toString();                
                 // on script file double click: add another editor component
-                openDocument(fileToOpen);
+                if(fileToOpen.endsWith(".xqt.txt")){
+                    openDocument(fileToOpen);
+                }
             }
         };
         tree.addMouseListener(ml);        

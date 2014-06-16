@@ -14,10 +14,10 @@ import com.jidesoft.editor.tokenmarker.Token;
  *
  * @author jfd
  */
-public class XQtTokemMarker extends SQLTokenMarker {
+public class XQtTokenMarker extends SQLTokenMarker {
 
     private static KeywordMap xqtKeywords;
-    public XQtTokemMarker(){
+    public XQtTokenMarker(){
             super(getKeywordMap(), false);
     }
 
@@ -35,52 +35,53 @@ public class XQtTokemMarker extends SQLTokenMarker {
 
     private static void addKeywords(){
         
+        // PERSPECTIVE
+        xqtKeywords.add("PERSPECTIVE",Token.KEYWORD1);
+        xqtKeywords.add("PERS",Token.KEYWORD1);
         xqtKeywords.add("EXTENDS",Token.KEYWORD1);   
         xqtKeywords.add("MapTo",Token.KEYWORD1);   
+        xqtKeywords.add("ATTRIBUTE",Token.KEYWORD1);
+        xqtKeywords.add("ATT",Token.KEYWORD1);
+        
+        // CONNECTION
+        xqtKeywords.add("CONNECTION",Token.KEYWORD1);
+        xqtKeywords.add("ADAPTER",Token.KEYWORD1);
+        xqtKeywords.add("SOURCE_URI",Token.KEYWORD1);
+        xqtKeywords.add("PARAMETERS",Token.KEYWORD1);
+        
+        //BIND
+        xqtKeywords.add("BIND",Token.KEYWORD1);
+
+        // SELECT
         xqtKeywords.add("SCOPE",Token.KEYWORD1);
         xqtKeywords.add("LIMIT",Token.KEYWORD1);
         xqtKeywords.add("SKIP",Token.KEYWORD1);
         xqtKeywords.add("TAKE",Token.KEYWORD1);
-        xqtKeywords.add("PERSPECTIVE",Token.KEYWORD1);
-        xqtKeywords.add("PERS",Token.KEYWORD1);
-        xqtKeywords.add("ADD",Token.KEYWORD1);
-        xqtKeywords.add("ADAPTER",Token.KEYWORD1);
-        xqtKeywords.add("SOURCE_URI",Token.KEYWORD1);
-        xqtKeywords.add("PARAMETERS",Token.KEYWORD1);
-        xqtKeywords.add("AND",Token.KEYWORD1);
-        xqtKeywords.add("OR",Token.KEYWORD1);
-        xqtKeywords.add("ATTRIBUTE",Token.KEYWORD1);
-        xqtKeywords.add("ATT",Token.KEYWORD1);
-        xqtKeywords.add("AS",Token.KEYWORD1);
+        xqtKeywords.add("INTO",Token.KEYWORD1);        
         xqtKeywords.add("ASC",Token.KEYWORD1);
-        xqtKeywords.add("BIND",Token.KEYWORD1);
         xqtKeywords.add("BY",Token.KEYWORD1);
-        xqtKeywords.add("CONNECTION",Token.KEYWORD1);
-        xqtKeywords.add("DEFAULT",Token.KEYWORD1);
-        xqtKeywords.add("DELETE",Token.KEYWORD1);
         xqtKeywords.add("DESC",Token.KEYWORD1);
         xqtKeywords.add("DISTINCT",Token.KEYWORD1);
-        xqtKeywords.add("DOUBLE",Token.KEYWORD1);
-        xqtKeywords.add("FOR",Token.KEYWORD1);
+        xqtKeywords.add("INTO",Token.KEYWORD1);
         xqtKeywords.add("FROM",Token.KEYWORD1);
-        xqtKeywords.add("INTO",Token.KEYWORD1);        
-        xqtKeywords.add("GOTO",Token.KEYWORD1);
         xqtKeywords.add("GROUP",Token.KEYWORD1);
         xqtKeywords.add("HAVING",Token.KEYWORD1);
-        xqtKeywords.add("IDENTITYCOL",Token.KEYWORD1);
-        xqtKeywords.add("ID",Token.KEYWORD1);
-        xqtKeywords.add("INTO",Token.KEYWORD1);
+        xqtKeywords.add("ORDER",Token.KEYWORD1);
+        xqtKeywords.add("SELECT",Token.KEYWORD1);
+        xqtKeywords.add("WHERE",Token.KEYWORD1);
+                
+        xqtKeywords.add("AS",Token.KEYWORD1);
+        xqtKeywords.add("DEFAULT",Token.KEYWORD1);
+        xqtKeywords.add("DELETE",Token.KEYWORD1);
+        
         xqtKeywords.add("IS",Token.KEYWORD1);
         xqtKeywords.add("MAX",Token.KEYWORD1);
         xqtKeywords.add("MIN",Token.KEYWORD1);
         xqtKeywords.add("OF",Token.KEYWORD1);
-        xqtKeywords.add("OFF",Token.KEYWORD1);
         xqtKeywords.add("OFFSETS",Token.KEYWORD1);
         xqtKeywords.add("ON",Token.KEYWORD1);
-        xqtKeywords.add("ORDER",Token.KEYWORD1);
-        xqtKeywords.add("SELECT",Token.KEYWORD1);
         xqtKeywords.add("TO",Token.KEYWORD1);
-        xqtKeywords.add("WHERE",Token.KEYWORD1);
+        
     }
 
     private static void addDataTypes(){
@@ -136,19 +137,20 @@ public class XQtTokemMarker extends SQLTokenMarker {
             xqtKeywords.add("YEAR",Token.KEYWORD2);
     }
 
-    private static void addOperators(){
-            xqtKeywords.add("ALL",Token.KEYWORD1);
-            xqtKeywords.add("AND",Token.KEYWORD1);
-            xqtKeywords.add("BETWEEN",Token.KEYWORD1);
-            xqtKeywords.add("EXISTS",Token.KEYWORD1);
-            xqtKeywords.add("IN",Token.KEYWORD1);
-            xqtKeywords.add("INTERSECT",Token.KEYWORD1);
-            xqtKeywords.add("JOIN",Token.KEYWORD1);
-            xqtKeywords.add("LIKE",Token.KEYWORD1);
-            xqtKeywords.add("NOT",Token.KEYWORD1);
-            xqtKeywords.add("NULL",Token.KEYWORD1);
-            xqtKeywords.add("OR",Token.KEYWORD1);
-            xqtKeywords.add("OUTER",Token.KEYWORD1);
+    private static void addOperators(){           
+        xqtKeywords.add("ADD",Token.KEYWORD1);
+        xqtKeywords.add("AND",Token.KEYWORD1);
+        xqtKeywords.add("OR",Token.KEYWORD1);
+        xqtKeywords.add("ALL",Token.KEYWORD1);
+        xqtKeywords.add("BETWEEN",Token.KEYWORD1);
+        xqtKeywords.add("EXISTS",Token.KEYWORD1);
+        xqtKeywords.add("IN",Token.KEYWORD1);
+        xqtKeywords.add("INTERSECT",Token.KEYWORD1);
+        xqtKeywords.add("JOIN",Token.KEYWORD1);
+        xqtKeywords.add("LIKE",Token.KEYWORD1);
+        xqtKeywords.add("NOT",Token.KEYWORD1);
+        xqtKeywords.add("NULL",Token.KEYWORD1);
+        xqtKeywords.add("OUTER",Token.KEYWORD1);
     }
 
     private static void addLiterals() {

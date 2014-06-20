@@ -9,102 +9,102 @@
 
     <dependencies>
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-action</artifactId>  
             <version>${jide-ver}</version>            
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-common</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-components</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-dock</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-editor</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-beaninfo</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-charts</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-dashboard</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-data</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-designer</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-dialogs</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-diff</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-gantt</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-grids</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-pivot</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-plaf</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-properties</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-rss</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-shortcut</artifactId>  
             <version>${jide-ver}</version>
         </dependency>        
         <dependency>
-            <groupId>jide</groupId>  
+            <groupId>com.jidesoft</groupId>  
             <artifactId>jide-treemap</artifactId>  
             <version>${jide-ver}</version>
         </dependency>
@@ -120,7 +120,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <jide-ver>3.5.15</jide-ver>
+        <jide-ver>3.6.0</jide-ver>
     </properties>
 
     <build>

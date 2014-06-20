@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
  */
 public class Driver {
     public static void main(String[] args) {
+        com.jidesoft.utils.Lm.verifyLicense("Friedrich Schiller University of Jena", "SciQuest", "iBVmHbKikKMgQhcRthIhOwcUROnqer3");
         SwingUtilities.invokeLater(() -> {
             PortingUtils.prerequisiteChecking();
             LookAndFeelFactory.installDefaultLookAndFeelAndExtension();

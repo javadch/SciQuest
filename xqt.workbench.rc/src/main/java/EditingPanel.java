@@ -16,9 +16,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -200,6 +202,8 @@ public class EditingPanel extends ResizablePanel{
     class LanguageServiceTask extends SwingWorker<LanguageServicePoint, String>{
         String processScript = "";
         double elapsedTime;
+        LanguageServicePoint lsp;
+        
         LanguageServiceTask(String processScript){
             this.processScript = processScript;
         }
@@ -208,13 +212,19 @@ public class EditingPanel extends ResizablePanel{
         Runs the process exeution task in the background using a separate thread.
         */
         @Override
-        protected LanguageServicePoint doInBackground() throws Exception {
-            LanguageServicePoint lsp = new LanguageServicePoint(processScript);
-            long start = System.nanoTime();
-            lsp.process();
-            long end = System.nanoTime();
-            elapsedTime = (double)(end - start) / 1000000000;
-            return lsp;
+        protected LanguageServicePoint doInBackground()  {
+            try {
+                lsp = new LanguageServicePoint(processScript);
+                long start = System.nanoTime();
+                lsp.process();
+                long end = System.nanoTime();
+                elapsedTime = (double)(end - start) / 1000000000;
+                return lsp;
+            } catch (IOException ex) {
+                //Logger.getLogger(EditingPanel.class.getName()).log(Level.SEVERE, null, ex);
+                // exceptions are handeled in the done method in the EDT 
+            }
+            return null;
         }
         
         /*
@@ -223,8 +233,15 @@ public class EditingPanel extends ResizablePanel{
         */
         @Override
         protected void done(){
-            try { 
-                LanguageServicePoint lsp = get();
+            //LanguageServicePoint lsp = get(); // check what happens if doInBackground throws an exception
+            // see whether the process model contains any exception, if so throw an InputMismatchException
+            // to singal the callers to go through the process model and handle the actual exceptions.
+            if(lsp.getEngine().getProcessModel().hasError()){
+                outputArea.append("The script submitted contains errors.\n");
+                lsp.getEngine().getProcessModel().getEffectiveErrors().forEach(p->
+                    {outputArea.append("Error: " + p.getMessage()+ "\n");  }  
+                );
+            } else {            
                 lsp.getEngine().getProcessModel().getStatements().values().stream().forEach( (s) -> {
                     if(s.isExecuted()){
                         if(s.hasResult()){
@@ -239,9 +256,8 @@ public class EditingPanel extends ResizablePanel{
                         }                    
                     }
                 });
-                outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
-            } catch (Exception ignore) {
-            }
+            }            
+            outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
             runButton.setEnabled(true);
         }    
     }

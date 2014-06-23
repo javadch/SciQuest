@@ -9,6 +9,7 @@ import java.util.List;
 import xqt.api.AppInfo;
 import xqt.api.LanguageServicePoint;
 import xqt.model.data.ResultsetType;
+import xqt.model.data.Variable;
 
 /**
  *
@@ -47,22 +48,35 @@ public class Driver {
         InputStream is = new FileInputStream(inputFile);
         LanguageServicePoint lsp = new LanguageServicePoint(is);
         lsp.process();
+            if(lsp.getEngine().getProcessModel().hasError()){
+                System.out.println("The script submitted contains errors.\n");
+                lsp.getEngine().getProcessModel().getEffectiveErrors().forEach(p->
+                    {System.out.println("Error: " + p.getMessage()+ "\n");  }  
+                );
+            } else {            
+                lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
+                    if(s.isExecuted()){
+                        if(s.hasResult()){
+                            Variable v = s.getExecutionInfo().getVariable();
+                            switch (v.getResult().getResultsetType()){
+                                case Tabular:{
+                                    System.out.println("var: (" + v.getName() + ") contains " + v.getResult().getTabularData().size() + " records.\n");                                    
+                                    break;
+                                }
+                            }
+                        } else {
+                            System.out.println("Statement " + s.getExecutionInfo().getStatement().getId() + " is executed but returned no result.\n");
+                        }                      
+                    }
+                });
+            }              
         // The way to access the variables from the query engine's memory
-        lsp.getEngine().getVariables().stream().forEach((s) -> {
-            if(s.getResult().getResultsetType() == ResultsetType.Tabular){
-                List<Object> list = ((List<Object>)s.getResult().getData());
-                System.out.println("var: (" + s.getName() + ") contains " + list.size() + " records.\n");
-            }
-        });
-        // The way to access the variables from the process model
-        lsp.getEngine().getProcessModel().getStatements().values().stream().forEach( (s) -> {
-            if(s.isExecuted()){
-                if(s.hasResult() && s.getExecutionInfo().getVariable().getResult().getResultsetType() == ResultsetType.Tabular){
-                    List<Object> list = ((List<Object>)s.getExecutionInfo().getVariable().getResult().getData());
-                    System.out.println("var: (" + s.getExecutionInfo().getVariable().getName() + ") contains " + list.size() + " records.\n");
-                }                    
-            }
-        });
+//        lsp.getEngine().getVariables().stream().forEach((s) -> {
+//            if(s.getResult().getResultsetType() == ResultsetType.Tabular){
+//                List<Object> list = ((List<Object>)s.getResult().getData());
+//                System.out.println("var: (" + s.getName() + ") contains " + list.size() + " records.\n");
+//            }
+//        });
     }
     
 }

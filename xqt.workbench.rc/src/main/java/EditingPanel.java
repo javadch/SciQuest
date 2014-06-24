@@ -242,7 +242,7 @@ public class EditingPanel extends ResizablePanel{
                     {outputArea.append("Error: " + p.getMessage()+ "\n");  }  
                 );
             } else {            
-                lsp.getEngine().getProcessModel().getStatements().values().stream().forEach( (s) -> {
+                lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
                     if(s.isExecuted()){
                         if(s.hasResult()){
                             Variable v = s.getExecutionInfo().getVariable();
@@ -253,7 +253,9 @@ public class EditingPanel extends ResizablePanel{
                                     break;
                                 }
                             }
-                        }                    
+                        } else {
+                            outputArea.append("Statement " + s.getExecutionInfo().getStatement().getId() + " is executed but returned no result.\n");
+                        }                      
                     }
                 });
             }            

@@ -175,7 +175,7 @@ public class EditingPanel extends ResizablePanel{
 
     private CodeEditorStatusBar prepareCodeSatusBar() {
         CodeEditorStatusBar codeStatusBar = new CodeEditorStatusBar(codeEditor);
-        JLabel codeMessage = new JLabel("Coding errors or messages related to the current code file go here");
+        JLabel codeMessage = new JLabel("" /*"Coding errors or messages related to the current code file go here"*/);
         codeMessage.setForeground(Color.RED);
         codeStatusBar.add(codeMessage, 0);
         runButton = ShellCommandBarFactory.createRunButton();

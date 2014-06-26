@@ -228,7 +228,7 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
         StatusBar statusBar = new StatusBar();
 
         final LabelStatusBarItem statusMessage = new LabelStatusBarItem("Line");
-        statusMessage.setText("Update this bar when something in the app is happening or has happend!");
+        statusMessage.setText(""/*"Update this bar when something in the app is happening or has happend!"*/);
         statusMessage.setPreferredWidth(500);
         statusMessage.setAlignment(JLabel.LEFT);
         statusBar.add(statusMessage, JideBoxLayout.FLEXIBLE);

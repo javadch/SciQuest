@@ -23,6 +23,9 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
@@ -36,6 +39,7 @@ import xqt.api.AppInfo;
 import xqt.api.LanguageServicePoint;
 import xqt.model.data.Resultset;
 import xqt.model.data.Variable;
+import xqt.model.exceptions.LanguageException;
 
 /**
  *
@@ -202,7 +206,7 @@ public class EditingPanel extends ResizablePanel{
     class LanguageServiceTask extends SwingWorker<LanguageServicePoint, String>{
         String processScript = "";
         double elapsedTime;
-        LanguageServicePoint lsp;
+        //LanguageServicePoint lsp;
         
         LanguageServiceTask(String processScript){
             this.processScript = processScript;
@@ -211,20 +215,16 @@ public class EditingPanel extends ResizablePanel{
         /*
         Runs the process exeution task in the background using a separate thread.
         */
+        int errorCount = 0;
         @Override
         protected LanguageServicePoint doInBackground()  {
-            try {
-                lsp = new LanguageServicePoint(processScript);
-                long start = System.nanoTime();
-                lsp.process();
-                long end = System.nanoTime();
-                elapsedTime = (double)(end - start) / 1000000000;
-                return lsp;
-            } catch (IOException ex) {
-                //Logger.getLogger(EditingPanel.class.getName()).log(Level.SEVERE, null, ex);
-                // exceptions are handeled in the done method in the EDT 
-            }
-            return null;
+            LanguageServicePoint lsp = new LanguageServicePoint(processScript);
+            long start = System.nanoTime();
+            lsp.process();
+            long end = System.nanoTime();
+            elapsedTime = (double)(end - start) / 1000000000;
+            errorCount = 0;
+            return lsp;
         }
         
         /*
@@ -233,74 +233,54 @@ public class EditingPanel extends ResizablePanel{
         */
         @Override
         protected void done(){
-            //LanguageServicePoint lsp = get(); // check what happens if doInBackground throws an exception
+            LanguageServicePoint lsp = null; 
+            try {
+                lsp = get(); // check what happens if doInBackground throws an exception. answer: the lsp does not throw any expetion, instea it collects and returns an exception list.
+            } catch (InterruptedException | ExecutionException ex) { // execution errors
+                outputArea.append("Program execution is interrupted. " + ex.getMessage() + "\n");
+            } 
             // see whether the process model contains any exception, if so throw an InputMismatchException
             // to singal the callers to go through the process model and handle the actual exceptions.
-            if(lsp.getEngine().getProcessModel().hasError()){
-                outputArea.append("The script submitted contains errors.\n");
-                lsp.getEngine().getProcessModel().getEffectiveErrors().forEach(p->
-                    {outputArea.append("Error: " + p.getMessage()+ "\n");  }  
+            
+            if(lsp != null && lsp.hasError()){ // lexical, syntax and ... error
+                if(errorCount <= 0)
+                    outputArea.append("The submitted process script contains errors.\n");
+                lsp.getExceptions().forEach(p-> {                    
+                    outputArea.append("Error " + ++errorCount + " : " + p.getMessage()+ "\n");  
+                }  
                 );
-            } else {            
-                lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
-                    if(s.isExecuted()){
-                        if(s.hasResult()){
-                            Variable v = s.getExecutionInfo().getVariable();
-                            switch (v.getResult().getResultsetType()){
-                                case Tabular:{
-                                    outputArea.append("var: (" + v.getName() + ") contains " + v.getResult().getTabularData().size() + " records.\n");
-                                    addTabularTab(v.getName(), v.getResult()); 
-                                    break;
+            } 
+            if(lsp.getEngine() != null && lsp.getEngine().getProcessModel() != null) {
+                if(lsp.getEngine().getProcessModel().hasError()){ // semantic errors
+                    if(errorCount <=0) 
+                        outputArea.append("The submitted process script contains errors.\n");
+                    lsp.getEngine().getProcessModel().getEffectiveErrors().forEach(p->
+                        {outputArea.append("Error " + ++errorCount + " : " + p.getMessage()+ "\n");  }  
+                    );
+                } else {            
+                    lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
+                        if(s.isExecuted()){
+                            if(s.hasResult()){
+                                Variable v = s.getExecutionInfo().getVariable();
+                                switch (v.getResult().getResultsetType()){
+                                    case Tabular:{
+                                        outputArea.append("var: (" + v.getName() + ") contains " + v.getResult().getTabularData().size() + " records.\n");
+                                        addTabularTab(v.getName(), v.getResult()); 
+                                        break;
+                                    }
                                 }
-                            }
-                        } else {
-                            outputArea.append("Statement " + s.getExecutionInfo().getStatement().getId() + " is executed but returned no result.\n");
-                        }                      
-                    }
-                });
-            }            
-            outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
-            runButton.setEnabled(true);
-        }    
+                            } else {
+                                outputArea.append("Statement " + s.getExecutionInfo().getStatement().getId() + " is executed but returned no result.\n");
+                            }                      
+                        }
+                    });
+                }            
+            }    
+        outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
+        runButton.setEnabled(true);
+    }
     }
     
-//     public static void paintJaggedLine(Graphics g, Shape a) {
-//        int y = (int) (a.getBounds().getY() + a.getBounds().getHeight());
-//        int x1 = (int) a.getBounds().getX();
-//        int x2 = (int) (a.getBounds().getX() + a.getBounds().getWidth());
-// 
-//        Color old = g.getColor();
-//        g.setColor(Color.red);
-//        for (int i = x1; i <= x2; i += 6) {
-//            g.drawArc(i + 3, y - 3, 3, 3, 0, 180);
-//            g.drawArc(i + 6, y - 3, 3, 3, 180, 181);
-//        }
-//        g.setColor(old);
-//    }
-    
-//     public void paint(Graphics g, Shape allocation) {
-//        super.paint(g, allocation);
-//        if (getAttributes().getAttribute("JAGGED_UDERLINE_ATTRIBUTE_NAME")!=null &&
-//            (Boolean)getAttributes().getAttribute("JAGGED_UDERLINE_ATTRIBUTE_NAME"")) {
-//            paintJaggedLine(g, allocation);
-//        }
-//    }
-//    private static HighlightPainter painter = new HighlightPainter(){ 
-//        @Override
-//        public void paint(Graphics grphcs, int i, int i1, Shape shape, CodeEditor ce) {
-//            try { 
-//                grphcs.setColor(new Color(255, 255, 200)); 
-//                grphcs.fillRect(10, 20, 50, 20); 
-//                paintJaggedLine(grphcs, shape);
-////                if(ce.getSelectionStart()==ce.getSelectionEnd()){ // if no selection 
-////                    Rectangle r = ce.modelToView(ce.getCaretPosition()); 
-////                    grphcs.setColor(new Color(255, 255, 200)); 
-////                    grphcs.fillRect(0, r.y, ce.getWidth(), r.height); 
-////                } 
-//            }catch (Exception ignore) { 
-//            }
-//        }
-//    };
     private void run(){
         runButton.setEnabled(false);
         initDataFrame();

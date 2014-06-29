@@ -85,56 +85,56 @@ public class XQtTokenMarker extends SQLTokenMarker {
     }
 
     private static void addDataTypes(){
-            xqtKeywords.add("boolean",Token.KEYWORD2);
-            xqtKeywords.add("bool",Token.KEYWORD2);
-            xqtKeywords.add("string",Token.KEYWORD2);
-            xqtKeywords.add("str",Token.KEYWORD2);
-            xqtKeywords.add("byte",Token.KEYWORD2);
-            xqtKeywords.add("int",Token.KEYWORD2);
-            xqtKeywords.add("integer",Token.KEYWORD2);
-            xqtKeywords.add("long",Token.KEYWORD2);
-            xqtKeywords.add("real",Token.KEYWORD2);
-            xqtKeywords.add("date",Token.KEYWORD2);            
+        xqtKeywords.add("boolean",Token.KEYWORD2);
+        xqtKeywords.add("bool",Token.KEYWORD2);
+        xqtKeywords.add("string",Token.KEYWORD2);
+        xqtKeywords.add("str",Token.KEYWORD2);
+        xqtKeywords.add("byte",Token.KEYWORD2);
+        xqtKeywords.add("int",Token.KEYWORD2);
+        xqtKeywords.add("integer",Token.KEYWORD2);
+        xqtKeywords.add("long",Token.KEYWORD2);
+        xqtKeywords.add("real",Token.KEYWORD2);
+        xqtKeywords.add("date",Token.KEYWORD2);            
     }
 
     private static void addSystemFunctions(){
-            xqtKeywords.add("ABS",Token.KEYWORD2);
-            xqtKeywords.add("ACOS",Token.KEYWORD2);
-            xqtKeywords.add("ASIN",Token.KEYWORD2);
-            xqtKeywords.add("ATAN",Token.KEYWORD2);
-            xqtKeywords.add("ATN2",Token.KEYWORD2);
-            xqtKeywords.add("CEILING",Token.KEYWORD2);
-            xqtKeywords.add("CHARINDEX",Token.KEYWORD2);
-            xqtKeywords.add("COS",Token.KEYWORD2);
-            xqtKeywords.add("COT",Token.KEYWORD2);
-            xqtKeywords.add("CURRENT_TIME",Token.KEYWORD2);
-            xqtKeywords.add("CURRENT_DATE",Token.KEYWORD2);
-            xqtKeywords.add("CURRENT_TIMESTAMP",Token.KEYWORD2);
-            xqtKeywords.add("DAY",Token.KEYWORD2);
-            xqtKeywords.add("FLOOR",Token.KEYWORD2);
-            xqtKeywords.add("ISDATE",Token.KEYWORD2);
-            xqtKeywords.add("ISNULL",Token.KEYWORD2);
-            xqtKeywords.add("ISNUMERIC",Token.KEYWORD2);
-            xqtKeywords.add("LOG",Token.KEYWORD2);
-            xqtKeywords.add("LOG10",Token.KEYWORD2);
-            xqtKeywords.add("LOWER",Token.KEYWORD2);
-            xqtKeywords.add("LTRIM",Token.KEYWORD2);
-            xqtKeywords.add("MONTH",Token.KEYWORD2);
-            xqtKeywords.add("PI",Token.KEYWORD2);
-            xqtKeywords.add("POWER",Token.KEYWORD2);
-            xqtKeywords.add("RAND",Token.KEYWORD2);
-            xqtKeywords.add("REPLACE",Token.KEYWORD2);
-            xqtKeywords.add("RIGHT",Token.KEYWORD2);
-            xqtKeywords.add("ROUND",Token.KEYWORD2);
-            xqtKeywords.add("RTRIM",Token.KEYWORD2);
-            xqtKeywords.add("SIN",Token.KEYWORD2);
-            xqtKeywords.add("SQRT",Token.KEYWORD2);
-            xqtKeywords.add("SQUARE",Token.KEYWORD2);
-            xqtKeywords.add("STR",Token.KEYWORD2);
-            xqtKeywords.add("SUBSTRING",Token.KEYWORD2);
-            xqtKeywords.add("TAN",Token.KEYWORD2);
-            xqtKeywords.add("UPPER",Token.KEYWORD2);
-            xqtKeywords.add("YEAR",Token.KEYWORD2);
+        xqtKeywords.add("ABS",Token.KEYWORD2);
+        xqtKeywords.add("ACOS",Token.KEYWORD2);
+        xqtKeywords.add("ASIN",Token.KEYWORD2);
+        xqtKeywords.add("ATAN",Token.KEYWORD2);
+        xqtKeywords.add("ATN2",Token.KEYWORD2);
+        xqtKeywords.add("CEILING",Token.KEYWORD2);
+        xqtKeywords.add("CHARINDEX",Token.KEYWORD2);
+        xqtKeywords.add("COS",Token.KEYWORD2);
+        xqtKeywords.add("COT",Token.KEYWORD2);
+        xqtKeywords.add("CURRENT_TIME",Token.KEYWORD2);
+        xqtKeywords.add("CURRENT_DATE",Token.KEYWORD2);
+        xqtKeywords.add("CURRENT_TIMESTAMP",Token.KEYWORD2);
+        xqtKeywords.add("DAY",Token.KEYWORD2);
+        xqtKeywords.add("FLOOR",Token.KEYWORD2);
+        xqtKeywords.add("ISDATE",Token.KEYWORD2);
+        xqtKeywords.add("ISNULL",Token.KEYWORD2);
+        xqtKeywords.add("ISNUMERIC",Token.KEYWORD2);
+        xqtKeywords.add("LOG",Token.KEYWORD2);
+        xqtKeywords.add("LOG10",Token.KEYWORD2);
+        xqtKeywords.add("LOWER",Token.KEYWORD2);
+        xqtKeywords.add("LTRIM",Token.KEYWORD2);
+        xqtKeywords.add("MONTH",Token.KEYWORD2);
+        xqtKeywords.add("PI",Token.KEYWORD2);
+        xqtKeywords.add("POWER",Token.KEYWORD2);
+        xqtKeywords.add("RAND",Token.KEYWORD2);
+        xqtKeywords.add("REPLACE",Token.KEYWORD2);
+        xqtKeywords.add("RIGHT",Token.KEYWORD2);
+        xqtKeywords.add("ROUND",Token.KEYWORD2);
+        xqtKeywords.add("RTRIM",Token.KEYWORD2);
+        xqtKeywords.add("SIN",Token.KEYWORD2);
+        xqtKeywords.add("SQRT",Token.KEYWORD2);
+        xqtKeywords.add("SQUARE",Token.KEYWORD2);
+        xqtKeywords.add("STR",Token.KEYWORD2);
+        xqtKeywords.add("SUBSTRING",Token.KEYWORD2);
+        xqtKeywords.add("TAN",Token.KEYWORD2);
+        xqtKeywords.add("UPPER",Token.KEYWORD2);
+        xqtKeywords.add("YEAR",Token.KEYWORD2);
     }
 
     private static void addOperators(){           
@@ -150,6 +150,8 @@ public class XQtTokenMarker extends SQLTokenMarker {
         xqtKeywords.add("LIKE",Token.KEYWORD1);
         xqtKeywords.add("NOT",Token.KEYWORD1);
         xqtKeywords.add("NULL",Token.KEYWORD1);
+        xqtKeywords.add("NUMBER",Token.KEYWORD1);
+        xqtKeywords.add("EMPTY",Token.KEYWORD1);
         xqtKeywords.add("OUTER",Token.KEYWORD1);
     }
 

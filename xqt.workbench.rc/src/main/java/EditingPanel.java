@@ -121,7 +121,7 @@ public class EditingPanel extends ResizablePanel{
         DefaultTableModel tableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-            return false;
+                return false;
             }
         };
         List<String> columnNames = resultset.getSchema().stream().map(p->p.getName()).collect(Collectors.toList());

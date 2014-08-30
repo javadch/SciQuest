@@ -1,3 +1,4 @@
+import com.jidesoft.chart.Chart;
 import com.jidesoft.docking.DockContext;
 import com.jidesoft.docking.DockableFrame;
 import com.jidesoft.editor.CodeEditor;
@@ -102,6 +103,12 @@ public class EditingPanel extends ResizablePanel{
         this.revalidate();
     }
         
+    public synchronized void addChartTab(String title, Resultset resultSet){
+        dataPane.addTab(title, createChart(resultSet)); // JTable+data
+//        dataPane.revalidate();
+        this.revalidate();
+    }
+
     public static EditingPanel openEditorComponent(/*JideTabbedPane container,*/ String fileName, String title/*, JTextArea masterOutputArea*/) {
         // check if the file is already open, activate its container tab
         // if not create another tab, put the editor, etc in it and activate it
@@ -115,9 +122,14 @@ public class EditingPanel extends ResizablePanel{
         return workspacePane;
     }
 
+    private static Component createChart(Resultset resultSet) {
+        Chart chart = (Chart)resultSet.getData();
+        JScrollPane scroll = Utilities.createScrollPane(chart);
+        return scroll;        
+    }
+    
     private static Component createTable(Resultset resultset) {
         //List<String> columns = resultset.getSchema().stream().map(p-> p.getName()).collect(Collectors.toList());
-        JTable table = new JTable();
         DefaultTableModel tableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -126,7 +138,6 @@ public class EditingPanel extends ResizablePanel{
         };
         List<String> columnNames = resultset.getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
         tableModel.setColumnIdentifiers(columnNames.toArray(new String[columnNames.size()]));
-        table.setModel(tableModel);
         if (resultset.getTabularData()!= null && resultset.getTabularData().size() > 0) {
             List<Object> pagedData = resultset.getTabularData().stream().limit(100).collect(Collectors.toList());
             Class<?> clazz = pagedData.get(0).getClass();
@@ -147,6 +158,8 @@ public class EditingPanel extends ResizablePanel{
                     tableModel.addRow(tableRow);
                 }
         }
+        JTable table = new JTable();
+        table.setModel(tableModel);
         JScrollPane scroll = Utilities.createScrollPane(table);
         return scroll;
     }
@@ -195,7 +208,7 @@ public class EditingPanel extends ResizablePanel{
         codeStatusBar.add(runButton, 0); // attach the button to the actual script run method
         return codeStatusBar;
     }
-    
+
     /*
     Provides a multi-threaded envoronment for the process execution.
     In the UI, it is possible for the user to have more than one processes (code editors) open.
@@ -267,6 +280,12 @@ public class EditingPanel extends ResizablePanel{
                                         outputArea.append("var: (" + v.getName() + ") contains " + v.getResult().getTabularData().size() + " records.\n");
                                         addTabularTab(v.getName(), v.getResult()); 
                                         break;
+                                    }
+                                    case Image: {
+                                        outputArea.append("var: (" + v.getName() + ") contains a chart.\n");
+                                        addChartTab(v.getName(), v.getResult()); 
+                                        break;
+                                        
                                     }
                                 }
                             } else {

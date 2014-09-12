@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Container>
+    <RegisteredAdapter>
+        <Id>CSV</Id>
+        <Location>D:/Projects/PhD/Src/XQt/xqt.adapters.csv/target/csv.adapter-1.0-SNAPSHOT.jar</Location>
+        <LocationType>file</LocationType>
+        <ClassName>CsvDataAdapter</ClassName>
+        <Namespace>xqt.adapters.csv</Namespace>
+    </RegisteredAdapter>
+    <RegisteredAdapter>
+        <Id>DBMS</Id>
+        <Location>c:\m2</Location>
+        <LocationType>file</LocationType>
+        <ClassName>DbmsAdapter</ClassName>
+        <Namespace>x1.dbms</Namespace>
+    </RegisteredAdapter>
+</Container>

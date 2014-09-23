@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Functions>
+    <Function appliesTo="value" name="sqrt" returnType="Real">
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real"/>        
+    </Function>
+    <Function appliesTo="value" name="power" returnType="Real">
+        <Parameter name="base" permittedDataTypes="Byte|Integer|Long|Real"/>
+		<Parameter name="exponent" permittedDataTypes="Byte|Integer|Long|Real"/>
+    </Function>
+</Functions>

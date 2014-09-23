@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Functions>
+    <Function appliesTo="column" name="count" returnType="Long">
+        <Parameter name="columnName" permittedDataTypes="Boolean|Byte|String|Integer|Long|Real|Date"/>        
+    </Function>
+    <Function appliesTo="column" name="sum" returnType="Real">
+        <Parameter name="columnName" permittedDataTypes="Integer|Long|Real"/>
+    </Function>
+</Functions>

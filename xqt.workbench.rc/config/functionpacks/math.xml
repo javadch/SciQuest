@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Functions>
     <Function appliesTo="value" name="sqrt" returnType="Real">
-        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real"/>        
+		<Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sqrt" />
+		<!-- <Parameters></Parameters> -->
+		<Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+			<!-- <Constraint> -->
+		</Parameter>
     </Function>
     <Function appliesTo="value" name="power" returnType="Real">
+		<Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="pow" />
         <Parameter name="base" permittedDataTypes="Byte|Integer|Long|Real"/>
-		<Parameter name="exponent" permittedDataTypes="Byte|Integer|Long|Real"/>
+        <Parameter name="exponent" permittedDataTypes="Byte|Integer|Long|Real"/>
     </Function>
 </Functions>

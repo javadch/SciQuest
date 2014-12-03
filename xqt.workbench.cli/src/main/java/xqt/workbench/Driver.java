@@ -55,7 +55,7 @@ public class Driver {
                 );
             } else {            
                 lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
-                    if(s.isExecuted()){
+                    if(s.hasExecutionInfo()){
                         if(s.hasResult()){
                             Variable v = s.getExecutionInfo().getVariable();
                             switch (v.getResult().getResultsetType()){

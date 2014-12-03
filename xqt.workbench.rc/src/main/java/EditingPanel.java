@@ -256,8 +256,9 @@ public class EditingPanel extends ResizablePanel{
             // to singal the callers to go through the process model and handle the actual exceptions.
             
             if(lsp != null && lsp.hasError()){ // lexical, syntax and ... error
-                if(errorCount <= 0)
-                    outputArea.append("The submitted process script contains errors.\n");
+                outputArea.append("**************************************************************************************\n");
+                outputArea.append("************************************ Lexical Errors ***********************************\n");
+                outputArea.append("**************************************************************************************\n");
                 lsp.getExceptions().forEach(p-> {                    
                     outputArea.append("Error " + ++errorCount + " : " + p.getMessage()+ "\n");  
                 }  
@@ -265,36 +266,45 @@ public class EditingPanel extends ResizablePanel{
             } 
             if(lsp.getEngine() != null && lsp.getEngine().getProcessModel() != null) {
                 if(lsp.getEngine().getProcessModel().hasError()){ // semantic errors
-                    if(errorCount <=0) 
-                        outputArea.append("The submitted process script contains errors.\n");
+                    outputArea.append("**************************************************************************************\n");
+                    outputArea.append("***************************** Synatx and Semantic Errors *****************************\n");
+                    outputArea.append("**************************************************************************************\n");
                     lsp.getEngine().getProcessModel().getEffectiveErrors().forEach(p->
                         {outputArea.append("Error " + ++errorCount + " : " + p.getMessage()+ "\n");  }  
                     );
-                } else {            
-                    lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
-                        if(s.isExecuted()){
-                            if(s.hasResult()){
-                                Variable v = s.getExecutionInfo().getVariable();
-                                switch (v.getResult().getResultsetType()){
-                                    case Tabular:{
-                                        outputArea.append("var: (" + v.getName() + ") contains " + v.getResult().getTabularData().size() + " records.\n");
-                                        addTabularTab(v.getName(), v.getResult()); 
-                                        break;
-                                    }
-                                    case Image: {
-                                        outputArea.append("var: (" + v.getName() + ") contains a chart.\n");
-                                        addChartTab(v.getName(), v.getResult()); 
-                                        break;
-                                        
-                                    }
+                }             
+                outputArea.append("**************************************************************************************\n");
+                outputArea.append("****************************** Statement Execution Results ********************************\n");
+                outputArea.append("**************************************************************************************\n");
+                lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
+                    if(s.hasExecutionInfo()){
+                        if(!s.getExecutionInfo().isExecuted()){
+                            outputArea.append("Statement " + s.getId() + " was NOT executed.\n");
+                        } else if(s.hasResult()){
+                            Variable v = s.getExecutionInfo().getVariable();
+                            switch (v.getResult().getResultsetType()){
+                                case Tabular:{
+                                    outputArea.append("Statement " + s.getId() + " was executed. Its result is is in the variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
+                                    addTabularTab(v.getName(), v.getResult()); 
+                                    break;
                                 }
-                            } else {
-                                outputArea.append("Statement " + s.getExecutionInfo().getStatement().getId() + " is executed but returned no result.\n");
-                            }                      
-                        }
-                    });
-                }            
+                                case Image: {
+                                    outputArea.append("Statement " + s.getId() + " was executed.  Its result is is in the variable: '" + v.getName() + "'.\n");
+                                    addChartTab(v.getName(), v.getResult()); 
+                                    break;
+                                }
+                            }
+                        } else {
+                            outputArea.append("Statement " + s.getId() + " was executed but returned no result.\n");
+                        }                      
+                    } else {
+                        outputArea.append("Statement " + s.getId() + " was NOT executed.\n");
+                    }
+                });
             }    
+        outputArea.append("**************************************************************************************\n");
+        outputArea.append("******************************** Process Execution Time **********************************\n");
+        outputArea.append("**************************************************************************************\n");
         outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
         runButton.setEnabled(true);
     }

@@ -62,7 +62,6 @@ public class XQtTokenMarker extends SQLTokenMarker {
         xqtKeywords.add("BY",Token.KEYWORD1);
         xqtKeywords.add("DESC",Token.KEYWORD1);
         xqtKeywords.add("DISTINCT",Token.KEYWORD1);
-        xqtKeywords.add("INTO",Token.KEYWORD1);
         xqtKeywords.add("FROM",Token.KEYWORD1);
         xqtKeywords.add("GROUP",Token.KEYWORD1);
         xqtKeywords.add("HAVING",Token.KEYWORD1);
@@ -152,7 +151,10 @@ public class XQtTokenMarker extends SQLTokenMarker {
         xqtKeywords.add("NULL",Token.KEYWORD1);
         xqtKeywords.add("NUMBER",Token.KEYWORD1);
         xqtKeywords.add("EMPTY",Token.KEYWORD1);
+        xqtKeywords.add("INNER",Token.KEYWORD1);
         xqtKeywords.add("OUTER",Token.KEYWORD1);
+        xqtKeywords.add("LEFT",Token.KEYWORD1);
+        xqtKeywords.add("RIGHT",Token.KEYWORD1);
     }
 
     private static void addLiterals() {

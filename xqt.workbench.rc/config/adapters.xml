@@ -2,16 +2,18 @@
 <Adapters>
     <Adapter>
         <Id>CSV</Id>
+        <IsFallback>0</IsFallback>
         <Location>D:/Projects/PhD/Src/XQt/xqt.adapters.csv/target/csv.adapter-1.0-SNAPSHOT.jar</Location>
         <LocationType>file</LocationType>
         <ClassName>CsvDataAdapter</ClassName>
         <Namespace>xqt.adapters.csv</Namespace>
     </Adapter>
     <Adapter>
-        <Id>DBMS</Id>
-        <Location>c:\m2</Location>
+        <Id>DEFAULT</Id>
+        <IsFallback>1</IsFallback>
+        <Location>D:/Projects/PhD/Src/XQt/xqt.adapters.builtin/target/default.adapter-1.0-SNAPSHOT.jar</Location>
         <LocationType>file</LocationType>
-        <ClassName>DbmsAdapter</ClassName>
-        <Namespace>x1.dbms</Namespace>
+        <ClassName>DefaultDataAdapter</ClassName>
+        <Namespace>xqt.adapters.builtin</Namespace>
     </Adapter>
 </Adapters>

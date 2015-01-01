@@ -1,15 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Functions>
-    <Function appliesTo="value" name="sqrt" returnType="Real">
-		<Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sqrt" />
-		<!-- <Parameters></Parameters> -->
-		<Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
-			<!-- <Constraint> -->
-		</Parameter>
+    <Function appliesTo="value" name="sample" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sample" providerType="Adapter" providerString="" />
+        <!-- <Parameters></Parameters> -->
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+                <!-- <Constraint> -->
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="abs" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="abs" />
+        <!-- <Parameters></Parameters> -->
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="acos" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="acos" />
+        <!-- <Parameters></Parameters> -->
+        <Parameter name="input" permittedDataTypes="Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="asin" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="asin" />
+        <Parameter name="input" permittedDataTypes="Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="atan" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="atan" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="atn2" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="atn2" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="ceiling" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="ceil" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="cos" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="cos" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="exp" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="exp" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="floor" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="floor" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="log" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="log" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="log10" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="log10" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="logn" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="logn" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+        <Parameter name="base" permittedDataTypes="Byte|Integer|Long"/>
     </Function>
     <Function appliesTo="value" name="power" returnType="Real">
-		<Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="pow" />
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="pow" />
         <Parameter name="base" permittedDataTypes="Byte|Integer|Long|Real"/>
         <Parameter name="exponent" permittedDataTypes="Byte|Integer|Long|Real"/>
     </Function>
+    <Function appliesTo="value" name="rand" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="random" />
+    </Function>
+    <Function appliesTo="value" name="round" returnType="Long">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="round" />
+        <Parameter name="input" permittedDataTypes="Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="sin" returnType="Long">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sin" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="round" returnType="Long">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="round" />
+        <Parameter name="input" permittedDataTypes="Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="sqrt" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sqrt" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="tan" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="tan" />
+        <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="degreesof" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="toDegrees" />
+        <Parameter name="input" permittedDataTypes="Real">
+        </Parameter>
+    </Function>
+    <Function appliesTo="value" name="radiansof" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="toRadians" />
+        <Parameter name="input" permittedDataTypes="Real">
+        </Parameter>
+    </Function>
+    
 </Functions>

@@ -284,12 +284,12 @@ public class EditingPanel extends ResizablePanel{
                             Variable v = s.getExecutionInfo().getVariable();
                             switch (v.getResult().getResultsetType()){
                                 case Tabular:{
-                                    outputArea.append("Statement " + s.getId() + " was executed. Its result is is in the variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
+                                    outputArea.append("Statement " + s.getId() + " was executed. Its result is in the variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
                                     addTabularTab(v.getName(), v.getResult()); 
                                     break;
                                 }
                                 case Image: {
-                                    outputArea.append("Statement " + s.getId() + " was executed.  Its result is is in the variable: '" + v.getName() + "'.\n");
+                                    outputArea.append("Statement " + s.getId() + " was executed.  Its result is in the variable: '" + v.getName() + "'.\n");
                                     addChartTab(v.getName(), v.getResult()); 
                                     break;
                                 }

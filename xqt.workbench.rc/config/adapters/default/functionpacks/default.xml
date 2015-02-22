@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Functions>
+    <Function appliesTo="value" name="acos" returnType="Real">
+        <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="acos" />
+        <!-- <Parameters></Parameters> -->
+        <Parameter name="input" permittedDataTypes="Real">
+        </Parameter>
+    </Function>
     <Function appliesTo="column" name="count" returnType="Long">
+        <Implementation modifier="instance" jar="" namespace="xqt.model.functions.aggregates" class="Count" method="move" />
         <Parameter name="columnName" permittedDataTypes="Boolean|Byte|String|Integer|Long|Real|Date"/>  
         <!-- Add constarints to the parameters, and the return value. like pre/ post conditions-->     
         <!--The default java code of the function, a single chain of function calls, preferably one function.--> 

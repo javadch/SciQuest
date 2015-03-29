@@ -16,4 +16,12 @@
         <ClassName>DefaultDataAdapter</ClassName>
         <Namespace>xqt.adapters.builtin</Namespace>
     </Adapter>
+    <Adapter>
+        <Id>DBMS</Id>
+        <IsFallback>0</IsFallback>
+        <Location>D:/Projects/PhD/Src/XQt/xqt.adapters.dbms/target/dbms.adapter-1.0-SNAPSHOT.jar</Location>
+        <LocationType>file</LocationType>
+        <ClassName>DbmsDataAdapter</ClassName>
+        <Namespace>xqt.adapters.dbms</Namespace>
+    </Adapter>
 </Adapters>

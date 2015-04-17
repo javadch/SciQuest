@@ -232,11 +232,13 @@ public class EditingPanel extends ResizablePanel{
         @Override
         protected LanguageServicePoint doInBackground()  {
             LanguageServicePoint lsp = new LanguageServicePoint(processScript);
-            long start = System.nanoTime();
-            lsp.process();
-            long end = System.nanoTime();
-            elapsedTime = (double)(end - start) / 1000000000;
-            errorCount = 0;
+            if(!lsp.hasError()){
+                long start = System.nanoTime();
+                lsp.process();
+                long end = System.nanoTime();
+                elapsedTime = (double)(end - start) / 1000000000;
+                errorCount = 0;
+            }
             return lsp;
         }
         
@@ -250,7 +252,7 @@ public class EditingPanel extends ResizablePanel{
             try {
                 lsp = get(); // check what happens if doInBackground throws an exception. answer: the lsp does not throw any expetion, instea it collects and returns an exception list.
             } catch (InterruptedException | ExecutionException ex) { // execution errors
-                outputArea.append("Program execution is interrupted. " + ex.getMessage() + "\n");
+                outputArea.append("Program execution was interrupted. " + ex.getMessage() + "\n");
             } 
             // see whether the process model contains any exception, if so throw an InputMismatchException
             // to singal the callers to go through the process model and handle the actual exceptions.
@@ -264,10 +266,10 @@ public class EditingPanel extends ResizablePanel{
                 }  
                 );
             } 
-            if(lsp.getEngine() != null && lsp.getEngine().getProcessModel() != null) {
+            if(lsp!=null && lsp.getEngine() != null && lsp.getEngine().getProcessModel() != null) {
                 if(lsp.getEngine().getProcessModel().hasError()){ // semantic errors
                     outputArea.append("**************************************************************************************\n");
-                    outputArea.append("***************************** Synatx and Semantic Errors *****************************\n");
+                    outputArea.append("******************************* Synatx and Semantic Errors *******************************\n");
                     outputArea.append("**************************************************************************************\n");
                     lsp.getEngine().getProcessModel().getEffectiveErrors().forEach(p->
                         {outputArea.append("Error " + ++errorCount + " : " + p.getMessage()+ "\n");  }  

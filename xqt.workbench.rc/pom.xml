@@ -4,7 +4,7 @@
     <name>Workbench -&gt; RC</name>
     <groupId>xqt.workbench</groupId>
     <artifactId>sciquest.rc</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -109,16 +109,15 @@
             <version>${jide-ver}</version>
         </dependency>
         <dependency>
-            <groupId>xqt</groupId>
-            <artifactId>xqt.api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.3-1100-jdbc41</version>            
         </dependency>
-        
+        <dependency>
+            <groupId>xqt</groupId>
+            <artifactId>xqt.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <properties>
@@ -167,10 +166,23 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- issue this command at the CMD: mvn clean package assembly:single / the cmd should be at the location of this pom folder-->
+                <!-- 
+                issue this command at the CMD: mvn clean package assembly:single / the cmd should be at the location of this pom folder
+                Or run the make.bat in the xqt.workbench.rc root folder
+                The result will be in the target folder az a folder/zip/jar
+                -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.4</version>
+                <executions>
+                    <execution>
+                            <id>make-assembly</id>
+                            <phase>package</phase>
+                            <goals>
+                                    <goal>attached</goal>
+                            </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <descriptor>src/main/assembly/assembly.xml</descriptor>
                 </configuration>

@@ -61,7 +61,7 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
     private final String PROFILE_NAME = "SciQuest-IDE";
     public final String SHELL_DOCKABLE_FRAME_KEY = "ShellFrame";
 
-     public void openProject(String projectRootPath) {     
+    public void openProject(String projectRootPath) {     
             FileTreeModel treeModel = new FileTreeModel(new File(projectRootPath));
             NavigationTree tree = new NavigationTree(treeModel);
             tree.setCellRenderer(new FileTreeCellRenderer());
@@ -163,12 +163,14 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
         return mainFrame;
     }
 
+    String activeDocumentName; //the filename of the active editor
+    
     public void openDocument(final String fileToOpen) {
         String title = new File(fileToOpen).getName(); // extract the file name
         if (!documentManagerPane.isDocumentOpened(title)) {
             EditingPanel editor = EditingPanel.openEditorComponent(fileToOpen, title/*, outputTextArea*/);
             final DocumentComponent documentComponent = new DocumentComponent(editor, title); // its possible to pass an icon too.
-            openEditors.put(title, editor);
+            openEditors.put(fileToOpen, editor);
             documentComponent.addDocumentComponentListener(new DocumentComponentAdapter() {
                 @Override
                 public void documentComponentOpened(DocumentComponentEvent e) {
@@ -176,23 +178,24 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
 
                 @Override
                 public void documentComponentClosing(DocumentComponentEvent e) {
-//                    if (documentManagerPane.getDocumentCount() <= 1) {
-//                        getDockingManager().hideFrame(OPTIONS_DOCKABLE_FRAME_KEY);
-//                    }
-                    editor.dispose();
+                    // check if the file has been changes
                 }
 
                 @Override
                 public void documentComponentClosed(DocumentComponentEvent e) {
+                    DocumentComponent activeDoc = e.getDocumentComponent();
+                    EditingPanel activeEditor = (EditingPanel)activeDoc.getComponent();
+                    activeDocumentName = activeEditor.getFilePath();
+                    openEditors.remove(activeDocumentName);
+                    activeEditor.dispose();
+                    activeDocumentName = "";
                 }
 
                 @Override
                 public void documentComponentActivated(final DocumentComponentEvent e) {
-                    // the code is here as a sample only
-//                    DockableFrame frame = getDockingManager().getFrame(OPTIONS_DOCKABLE_FRAME_KEY);
-//                    if (frame.isHidden()) {
-//                        getDockingManager().showFrame(OPTIONS_DOCKABLE_FRAME_KEY, false);
-//                    }
+                    DocumentComponent activeDoc = e.getDocumentComponent();
+                    EditingPanel activePanel = (EditingPanel)activeDoc.getComponent();
+                    activeDocumentName = activePanel.getFilePath();
                 }
 
                 @Override
@@ -204,6 +207,37 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
         documentManagerPane.setActiveDocument(title, true);
     }
 
+    @Override
+    public void saveDocument(){
+        EditingPanel editor = (EditingPanel)openEditors.get(activeDocumentName);
+        editor.save();
+    }
+    
+    @Override
+    public void saveAllDocuments(){
+        openEditors.values().stream().forEach(p-> {
+            ((EditingPanel)p).save();
+        });
+    }
+    
+    @Override
+    public void redoChnages(){
+        EditingPanel editor = (EditingPanel)openEditors.get(activeDocumentName);
+        editor.redo();        
+    }
+    
+    @Override
+    public void undoChnages(){
+        EditingPanel editor = (EditingPanel)openEditors.get(activeDocumentName);
+        editor.undo();
+    }
+
+    @Override
+    public void runProcess(){
+        EditingPanel editor = (EditingPanel)openEditors.get(activeDocumentName);
+        editor.run();
+    }
+    
     private static void clearUp() {
         mainFrame.removeWindowListener(_windowListener);
         _windowListener = null;

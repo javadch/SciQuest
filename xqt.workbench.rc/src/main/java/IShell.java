@@ -11,5 +11,13 @@
  * @author standard
  */
 public interface IShell {
-   void openProject(String projectRootPath);
+    void openProject(String projectRootPath);
+    void saveDocument();
+    void saveAllDocuments();
+
+    void undoChnages();
+
+    void redoChnages();
+
+    void runProcess();
 }

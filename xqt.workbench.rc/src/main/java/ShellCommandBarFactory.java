@@ -69,14 +69,31 @@ public class ShellCommandBarFactory extends CommandBarFactory {
               
         AbstractButton openButton = createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.OPEN));
         openButton.addActionListener(new AbstractAction() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 openDialog(container, JFileChooser.DIRECTORIES_ONLY);
             }
         });
         commandBar.add(openButton);
         
-        commandBar.add(createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.SAVE)));
-        commandBar.add(createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.SAVE_ALL)));
+        AbstractButton saveButton = createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.SAVE));
+        saveButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveCurrentOpenFile(container);
+            }
+        });
+        commandBar.add(saveButton);
+        
+        AbstractButton saveAllButton = createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.SAVE_ALL));
+        saveAllButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveAllOpenFiles(container);
+            }
+        });
+        commandBar.add(saveAllButton);
+
         commandBar.addSeparator();
 
         commandBar.add(createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.CUT)));
@@ -84,13 +101,38 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         commandBar.add(createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.PASTE)));
         commandBar.addSeparator();
 
-        commandBar.add(createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.UNDO)));
-        commandBar.add(createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.REDO)));
+        AbstractButton undoButton = createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.UNDO));
+        undoButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                undoChanges(container);
+            }
+        });
+        commandBar.add(undoButton);
+
+        AbstractButton redoButton = createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.REDO));
+        undoButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                redoChanges(container);
+            }
+        });
+        commandBar.add(redoButton);
+
 //        commandBar.add(createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.NAVIGATE_BACKWARD)));
 //        commandBar.add(createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.NAVIGATE_FORWARD)));
         commandBar.addSeparator();
 
-        commandBar.add(createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.START)));
+        AbstractButton runButton = createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.START));
+        undoButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                this.setEnabled(false);
+                runProcess(container);
+                this.setEnabled(true);
+            }
+        });
+        commandBar.add(runButton);
         commandBar.addSeparator();
 
         commandBar.add(createButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.FIND_IN_FILES)));
@@ -368,4 +410,23 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         }         
     }    
     
+    private static void saveCurrentOpenFile(Component container) {
+        ((IShell)container).saveDocument();
+    }
+    
+    private static void saveAllOpenFiles(Component container) {
+        ((IShell)container).saveAllDocuments();
+    }
+
+    private static void undoChanges(Container container) {
+        ((IShell)container).undoChnages();
+    }
+    
+    private static void redoChanges(Container container) {
+        ((IShell)container).redoChnages();
+    }
+    
+    public static void runProcess(Container container){
+        ((IShell)container).runProcess();
+    }
 }

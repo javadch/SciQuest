@@ -17,6 +17,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
@@ -55,6 +59,14 @@ public class EditingPanel extends ResizablePanel{
 //    private JTextArea masterOutputArea; // the output area of the shell
     JideSplitPane splitPane;
     String filePath;
+    
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public CodeEditor getCodeEditor() {
+        return codeEditor;
+    }
     private AbstractButton runButton;
     
     public EditingPanel(String filePath, String title){
@@ -139,7 +151,7 @@ public class EditingPanel extends ResizablePanel{
         List<String> columnNames = resultset.getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
         tableModel.setColumnIdentifiers(columnNames.toArray(new String[columnNames.size()]));
         if (resultset.getTabularData()!= null && resultset.getTabularData().size() > 0) {
-            List<Object> pagedData = resultset.getTabularData().stream().limit(100).collect(Collectors.toList());
+            List<Object> pagedData = resultset.getTabularData().stream().limit(100).collect(Collectors.toList());            
             Class<?> clazz = pagedData.get(0).getClass();
             Object[] tableRow = new Object[columnNames.size()];
                 for(Object row: pagedData) {            
@@ -165,9 +177,10 @@ public class EditingPanel extends ResizablePanel{
     }
 
     private void initCodeEditor(String fileName) {
-        codeEditor = new CodeEditor();  
+        codeEditor = new CodeEditor();
         codeEditor.setFileName(fileName);
         codeEditor.setTokenMarker(new XQtTokenMarker());
+        //codeEditor.documentChanged // should work, but its protected
         LanguageSpec languageSpec = LanguageSpecManager.getInstance().getLanguageSpec("XQt");
         if (languageSpec != null) {
             languageSpec.configureCodeEditor(codeEditor);
@@ -180,7 +193,6 @@ public class EditingPanel extends ResizablePanel{
         ListDataCodeEditorIntelliHints<String> listDataCodeEditorIntelliHints = new ListDataCodeEditorIntelliHints<>(codeEditor, strings);
         
         CodeFoldingMargin margin = new CodeFoldingMargin(codeEditor);
-
         //codeEditor.getMarginArea().addMarginComponent(new CodeFoldingMargin());
         // View caret position
         // DefaultSelectionModel start and end offsets
@@ -208,7 +220,35 @@ public class EditingPanel extends ResizablePanel{
         codeStatusBar.add(runButton, 0); // attach the button to the actual script run method
         return codeStatusBar;
     }
+    
+    public void save(){
+        //if(codeEditor.hasChanged)
+        BufferedWriter writer = null;
+        try {
+            String content = codeEditor.getRawText();
+            String fileName = codeEditor.getFileName();
+            writer = new BufferedWriter( new FileWriter(fileName));
+            writer.write(content);
+        } catch (IOException ex) {
+            Logger.getLogger(EditingPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if ( writer != null)
+                    writer.close( );
+            } catch (IOException ex) {
+                Logger.getLogger(EditingPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
+    public void undo(){
+        codeEditor.undo();
+    }
+    
+    public void redo(){
+        codeEditor.redo();
+    }
+    
     /*
     Provides a multi-threaded envoronment for the process execution.
     In the UI, it is possible for the user to have more than one processes (code editors) open.
@@ -312,7 +352,7 @@ public class EditingPanel extends ResizablePanel{
     }
     }
     
-    private void run(){
+    public void run(){
         runButton.setEnabled(false);
         initDataFrame();
 //        try {

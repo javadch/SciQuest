@@ -1,6 +1,8 @@
 
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.utils.PortingUtils;
+import com.vaiona.commons.logging.LoggerHelper;
+import java.text.MessageFormat;
 import javax.swing.SwingUtilities;
 
 /*
@@ -22,5 +24,6 @@ public class Driver {
             Shell shell = new Shell();
             shell.showUp(true);
         });
+
     }
 }

@@ -8,6 +8,10 @@ import com.jidesoft.editor.language.LanguageSpecManager;
 import com.jidesoft.editor.margin.CodeFoldingMargin;
 import com.jidesoft.editor.status.CodeEditorStatusBar;
 import com.jidesoft.editor.tokenmarker.JavaTokenMarker;
+import com.jidesoft.grid.SortableTable;
+import com.jidesoft.grid.TableModelWrapperUtils;
+import com.jidesoft.paging.PageNavigationBar;
+import com.jidesoft.paging.PageNavigationSupport;
 import com.jidesoft.swing.JideSplitPane;
 import com.jidesoft.swing.JideTabbedPane;
 import com.jidesoft.swing.ResizablePanel;
@@ -17,6 +21,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,7 +42,9 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -110,7 +120,8 @@ public class EditingPanel extends ResizablePanel{
     }
     
     public synchronized void addTabularTab(String title, Resultset resultSet){
-        dataPane.addTab(title, createTable(resultSet)); // JTable+data
+        //dataPane.addTab(title, createTable(resultSet)); // JTable+data
+        dataPane.addTab(title, createTablePanel(resultSet));
 //        dataPane.revalidate();
         this.revalidate();
     }
@@ -142,12 +153,20 @@ public class EditingPanel extends ResizablePanel{
     
     private static Component createTable(Resultset resultset) {
         //List<String> columns = resultset.getSchema().stream().map(p-> p.getName()).collect(Collectors.toList());
-        DefaultTableModel tableModel = new DefaultTableModel() {
+        DefaultTableModel tableModel = populateTableModel(resultset);
+        JTable table = new JTable();
+        table.setModel(tableModel);
+        JScrollPane scroll = Utilities.createScrollPane(table);
+        return scroll;
+    }
+
+    private static DefaultTableModel populateTableModel(Resultset resultset){
+       DefaultTableModel tableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };
+        }; 
         List<String> columnNames = resultset.getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
         tableModel.setColumnIdentifiers(columnNames.toArray(new String[columnNames.size()]));
         if (resultset.getTabularData()!= null && resultset.getTabularData().size() > 0) {
@@ -169,13 +188,44 @@ public class EditingPanel extends ResizablePanel{
                     }
                     tableModel.addRow(tableRow);
                 }
-        }
-        JTable table = new JTable();
-        table.setModel(tableModel);
-        JScrollPane scroll = Utilities.createScrollPane(table);
-        return scroll;
+        }     
+       return tableModel;
     }
+  
+    private static Component createTablePanel(Resultset resultset) {
+        DefaultTableModel tableModel = populateTableModel(resultset);
+        
+        final SortableTable table = new SortableTable(tableModel);
+        //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        final JScrollPane scroller = Utilities.createScrollPane(table);
+        scroller.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                table.setCellContentVisible(!e.getValueIsAdjusting());
+            }
+        });
+        scroller.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int rowCount = scroller.getViewport().getHeight() / table.getRowHeight();
+                PageNavigationSupport pageNavigationSupport = (PageNavigationSupport) TableModelWrapperUtils.getActualTableModel(table.getModel(), PageNavigationSupport.class);
+                if (pageNavigationSupport != null) {
+                    pageNavigationSupport.setPageSize(rowCount);
+                }
+            }
+        });
 
+        JPanel panel = new JPanel(new BorderLayout(2, 2));
+        panel.setBorder(BorderFactory.createCompoundBorder());
+                //BorderFactory.createTitledBorder("The resulting data"),
+                //BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        panel.add(scroller);
+        PageNavigationBar pageNavigationBar = new PageNavigationBar(table);       
+        pageNavigationBar.setName("tablePageNavigationBar");
+        //PageNavigationBar _tablePageNavigationBar = pageNavigationBar;
+        panel.add(pageNavigationBar, BorderLayout.AFTER_LAST_LINE);
+        return panel;
+    }
+    
     private void initCodeEditor(String fileName) {
         codeEditor = new CodeEditor();
         codeEditor.setFileName(fileName);

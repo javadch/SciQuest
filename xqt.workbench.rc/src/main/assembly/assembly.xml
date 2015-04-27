@@ -21,6 +21,10 @@
     		<directory>target/jre</directory>
     		<outputDirectory>/jre</outputDirectory> 
     	</fileSet>
+        <fileSet>
+            <directory>config</directory>
+            <outputDirectory>/config</outputDirectory>
+        </fileSet>        
     </fileSets>
     <!-- This will scrub your dependencies and add them to your lib folder, I excluded
          Test stuff as it is not needed, could have declared the resource as a test

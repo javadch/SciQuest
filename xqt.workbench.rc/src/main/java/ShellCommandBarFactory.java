@@ -1,7 +1,3 @@
-
-
-
-
 import com.jidesoft.action.CommandBar;
 import com.jidesoft.action.CommandBarFactory;
 import com.jidesoft.action.CommandMenuBar;

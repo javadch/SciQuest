@@ -160,38 +160,6 @@ public class EditingPanel extends ResizablePanel{
         return scroll;
     }
 
-    private static DefaultTableModel populateTableModel(Resultset resultset){
-       DefaultTableModel tableModel = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        }; 
-        List<String> columnNames = resultset.getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
-        tableModel.setColumnIdentifiers(columnNames.toArray(new String[columnNames.size()]));
-        if (resultset.getTabularData()!= null && resultset.getTabularData().size() > 0) {
-            List<Object> pagedData = resultset.getTabularData().stream().limit(100).collect(Collectors.toList());            
-            Class<?> clazz = pagedData.get(0).getClass();
-            Object[] tableRow = new Object[columnNames.size()];
-                for(Object row: pagedData) {            
-                    for(int i=0; i<columnNames.size(); i++){
-                        try {
-                            Field field = clazz.getField(columnNames.get(i));
-                            try {
-                                tableRow[i] = field.get(row);
-                            } catch (IllegalArgumentException | IllegalAccessException ex) {
-                                tableRow[i] = "ERROR";
-                            }
-                        } catch (NoSuchFieldException | SecurityException ex) {
-                            tableRow[i] = "ERROR";
-                        }
-                    }
-                    tableModel.addRow(tableRow);
-                }
-        }     
-       return tableModel;
-    }
-  
     private static Component createTablePanel(Resultset resultset) {
         DefaultTableModel tableModel = populateTableModel(resultset);
         
@@ -226,6 +194,38 @@ public class EditingPanel extends ResizablePanel{
         return panel;
     }
     
+    private static DefaultTableModel populateTableModel(Resultset resultset){
+       DefaultTableModel tableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        }; 
+        List<String> columnNames = resultset.getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
+        tableModel.setColumnIdentifiers(columnNames.toArray(new String[columnNames.size()]));
+        if (resultset.getTabularData()!= null && resultset.getTabularData().size() > 0) {
+            List<Object> pagedData = resultset.getTabularData().stream().collect(Collectors.toList());            
+            Class<?> clazz = pagedData.get(0).getClass();
+            Object[] tableRow = new Object[columnNames.size()];
+                for(Object row: pagedData) {            
+                    for(int i=0; i<columnNames.size(); i++){
+                        try {
+                            Field field = clazz.getField(columnNames.get(i));
+                            try {
+                                tableRow[i] = field.get(row);
+                            } catch (IllegalArgumentException | IllegalAccessException ex) {
+                                tableRow[i] = "ERROR";
+                            }
+                        } catch (NoSuchFieldException | SecurityException ex) {
+                            tableRow[i] = "ERROR";
+                        }
+                    }
+                    tableModel.addRow(tableRow);
+                }
+        }     
+       return tableModel;
+    }
+  
     private void initCodeEditor(String fileName) {
         codeEditor = new CodeEditor();
         codeEditor.setFileName(fileName);

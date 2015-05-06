@@ -120,11 +120,11 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         commandBar.addSeparator();
 
         AbstractButton runButton = createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.START));
-        undoButton.addActionListener(new AbstractAction() {
+        runButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 this.setEnabled(false);
-                runProcess(container);
+                runAllOpenProcesses(container);
                 this.setEnabled(true);
             }
         });
@@ -160,14 +160,24 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.ADD_NEW_ITEMS));
+        item.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                createProjectDialog(container, JFileChooser.DIRECTORIES_ONLY);
+            }
+        });
         menu.add(item);
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProcess.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.NewProcess.mnemonic").charAt(0));
+        item.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                createProcessDialog(container, JFileChooser.DIRECTORIES_ONLY);
+            }
+        });
         menu.add(item);
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.OpenProject.title"), 
-        ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.OPEN));
+                ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.OPEN));
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 openDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -398,7 +408,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
                //JOptionPane.showMessageDialog( this, "Invalid File Name", "Invalid File Name", JOptionPane.ERROR_MESSAGE );
             }
             else if (mode == JFileChooser.DIRECTORIES_ONLY){
-                ((IShell)container).openProject(fileName.toString());
+                ((IShell)container).openProject(fileName.toString(), true);
             } else {
                 // Show an error message. user should have chosen a directory
                 //String currentPath=path.getPath()+"\\"+fileName.getName();
@@ -406,6 +416,29 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         }         
     }    
     
+    private static void createProjectDialog(Component container, int mode) {
+        final JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        fileChooser.setFileSelectionMode(mode);
+        int returnVal = fileChooser.showSaveDialog(container);
+        if ( returnVal == JFileChooser.APPROVE_OPTION ){
+            File path=fileChooser.getSelectedFile();
+            ((IShell)container).createProject(path.getAbsolutePath().toString());
+        }         
+    }   
+      
+    private static void createProcessDialog(Component container, int mode) {
+//        final JFileChooser fileChooser = new JFileChooser();
+//        fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+//        fileChooser.setFileSelectionMode(mode);
+//        int returnVal = fileChooser.showOpenDialog(container);
+//        if ( returnVal == JFileChooser.SAVE_DIALOG ){
+//            File path=fileChooser.getCurrentDirectory();
+//            
+//        }   
+        ((IShell)container).createDocument();
+    }   
+
     private static void saveCurrentOpenFile(Component container) {
         ((IShell)container).saveDocument();
     }
@@ -422,7 +455,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         ((IShell)container).redoChnages();
     }
     
-    public static void runProcess(Container container){
-        ((IShell)container).runProcess();
+    public static void runAllOpenProcesses(Container container){
+        ((IShell)container).runAllOpenProcesses();
     }
 }

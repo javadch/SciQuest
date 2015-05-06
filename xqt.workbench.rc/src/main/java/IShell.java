@@ -11,7 +11,11 @@
  * @author standard
  */
 public interface IShell {
-    void openProject(String projectRootPath);
+    void openProject(String projectRootPath, Boolean closeDocuments);
+    void createProject(String path);
+    
+    void openDocument(final String fileToOpen);
+    void createDocument();
     void saveDocument();
     void saveAllDocuments();
 
@@ -19,5 +23,5 @@ public interface IShell {
 
     void redoChnages();
 
-    void runProcess();
+    void runAllOpenProcesses();
 }

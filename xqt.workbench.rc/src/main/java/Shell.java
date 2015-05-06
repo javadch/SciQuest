@@ -1,6 +1,7 @@
 
 
 import com.jidesoft.action.DefaultDockableBarDockableHolder;
+import com.jidesoft.dialog.JideOptionPane;
 import com.jidesoft.docking.DefaultDockingManager;
 import com.jidesoft.document.DocumentComponent;
 import com.jidesoft.document.DocumentComponentAdapter;
@@ -29,9 +30,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -45,12 +53,13 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.tree.TreePath;
+import org.antlr.v4.runtime.misc.FlexibleHashMap;
 
 public class Shell extends DefaultDockableBarDockableHolder implements IShell{
 
     private static Shell mainFrame;
     private static Component workspacePane;
-    private HashMap<String, ResizablePanel> openEditors = new LinkedHashMap<String, ResizablePanel>();
+    private final HashMap<String, ResizablePanel> openEditors = new LinkedHashMap<>();
 //    private static JideTabbedPane editorPane;
     private static IDocumentPane documentManagerPane;
 
@@ -60,41 +69,9 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
     private static JTextArea outputTextArea;
     private final String PROFILE_NAME = "SciQuest-IDE";
     public final String SHELL_DOCKABLE_FRAME_KEY = "ShellFrame";
+    String activeProjectPath;
+    String activeDocumentName; //the filename of the active editor
 
-    public void openProject(String projectRootPath) {     
-            FileTreeModel treeModel = new FileTreeModel(new File(projectRootPath));
-            NavigationTree tree = new NavigationTree(treeModel);
-            tree.setCellRenderer(new FileTreeCellRenderer());
-            tree.setRowHeight(20);
-            tree.setVisibleRowCount(30);
-            //ShellDockableFrameFactory.resetProjectViewFrame();
-            documentManagerPane.closeAll();
-            MouseListener ml = new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                int selRow = tree.getRowForLocation(e.getX(), e.getY());
-                TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
-                if(selRow != -1) {
-                    if(e.getClickCount() == 1) {
-                        //mySingleClick(selRow, selPath);
-                    }
-                    else if(e.getClickCount() == 2) {
-                        openDocumentDoubleClick(selRow, selPath);
-                    }
-                }
-            }
-            private void openDocumentDoubleClick(int selRow, TreePath selPath) {
-                String fileToOpen = selPath.getLastPathComponent().toString();                
-                // on script file double click: add another editor component
-                if(fileToOpen.endsWith(".xqt.txt")){
-                    openDocument(fileToOpen);
-                }
-            }
-        };
-        tree.addMouseListener(ml);        
-        ShellDockableFrameFactory.openProjectViewFrame(tree);
-        this.revalidate();
-    }
-    
     public Shell(String title) throws HeadlessException {
         super(title);
         //this.setIconImage(JideIconsFactory.getImageIcon(JideIconsFactory.JIDE50).getImage());
@@ -163,8 +140,61 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
         return mainFrame;
     }
 
-    String activeDocumentName; //the filename of the active editor
+    @Override
+    public void openProject(String projectRootPath, Boolean closeDocuments) {     
+        activeProjectPath = projectRootPath;
+        FileTreeModel treeModel = new FileTreeModel(new File(projectRootPath));
+        NavigationTree tree = new NavigationTree(treeModel);
+        tree.setCellRenderer(new FileTreeCellRenderer());
+        tree.setRowHeight(20);
+        tree.setVisibleRowCount(30);
+        //ShellDockableFrameFactory.resetProjectViewFrame();
+        if(closeDocuments)
+            documentManagerPane.closeAll();
+        MouseListener ml = new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int selRow = tree.getRowForLocation(e.getX(), e.getY());
+                TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+                if(selRow != -1) {
+                    if(e.getClickCount() == 1) {
+                        //mySingleClick(selRow, selPath);
+                    }
+                    else if(e.getClickCount() == 2) {
+                        openDocumentDoubleClick(selRow, selPath);
+                    }
+                }
+            }
+            private void openDocumentDoubleClick(int selRow, TreePath selPath) {
+                String fileToOpen = selPath.getLastPathComponent().toString();                
+                // on script file double click: add another editor component
+                if(fileToOpen.endsWith(".xqt.txt")){
+                    openDocument(fileToOpen);
+                }
+            }
+        };
+        tree.addMouseListener(ml);        
+        ShellDockableFrameFactory.openProjectViewFrame(tree);
+        this.revalidate();
+    }
     
+    @Override
+    public void createProject(String path){
+        // create a project in the path folder
+        // create sub folders: config, data, processes
+        // create process1.xqt.txt in the processes folder        
+        try {
+            Files.createDirectories(Paths.get(path, "configs"));
+            Files.createDirectories(Paths.get(path, "data"));
+            Files.createDirectories(Paths.get(path, "processes"));
+            Files.createFile(Paths.get(path, "processes", "process1.xqt.txt"));
+            openProject(path, true);
+        } catch (IOException ex) {
+            Logger.getLogger(Shell.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
     public void openDocument(final String fileToOpen) {
         String title = new File(fileToOpen).getName(); // extract the file name
         if (!documentManagerPane.isDocumentOpened(title)) {
@@ -208,6 +238,26 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
     }
 
     @Override
+    public void createDocument(){        
+        String result = JideOptionPane.showInputDialog("Enter a process file name");
+        if ((result != null) && (result.length() > 0)) {            
+            Path processesPath = Paths.get(activeProjectPath, "processes", result + ".xqt.txt");
+            File processFolder = processesPath.toFile();
+            if(processFolder.exists()){
+                JideOptionPane.showMessageDialog(workspacePane, "Process file " + result + "exists.");
+            } else{
+                try {
+                    Files.createFile(processesPath);
+                    // the tree should be updated
+                    openProject(activeProjectPath, false);
+                } catch (IOException ex) {
+                    Logger.getLogger(Shell.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }        
+    }
+    
+    @Override
     public void saveDocument(){
         EditingPanel editor = (EditingPanel)openEditors.get(activeDocumentName);
         editor.save();
@@ -233,9 +283,12 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
     }
 
     @Override
-    public void runProcess(){
-        EditingPanel editor = (EditingPanel)openEditors.get(activeDocumentName);
-        editor.run();
+    public void runAllOpenProcesses(){
+        openEditors.values().stream().forEach(p-> {
+            ((EditingPanel)p).run();
+        });
+//        EditingPanel editor = (EditingPanel)openEditors.get(activeDocumentName);
+//        editor.run();
     }
     
     private static void clearUp() {

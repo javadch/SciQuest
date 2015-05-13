@@ -5,7 +5,7 @@
             <Implementation modifier="instance" jar="" namespace="xqt.model.functions.aggregates" class="Count" method="move" />
         </Implementations>
         <Parameters>
-            <Parameter name="expr" permittedDataTypes="Boolean|Byte|String|Integer|Long|Real|Date"/>  
+            <Parameter name="expr" permittedDataTypes="Real|Long|Integer|Byte|Date|String"/>  
         </Parameters>
         <!-- Add constarints to the parameters, and the return value. like pre/ post conditions-->     
         <!--The default java code of the function, a single chain of function calls, preferably one function.--> 
@@ -15,7 +15,7 @@
             <Implementation modifier="instance" jar="" namespace="xqt.model.functions.aggregates" class="Sum" method="move" />
         </Implementations>
         <Parameters>
-            <Parameter name="expr" permittedDataTypes="Byte|Integer|Long|Real"/>
+            <Parameter name="expr" permittedDataTypes="Real|Long|Integer|Byte"/>
         </Parameters>
     </Function>
     <Function appliesTo="column" name="avg" returnType="Real">
@@ -23,7 +23,15 @@
             <Implementation modifier="instance" jar="" namespace="xqt.model.functions.aggregates" class="Average" method="move" />
         </Implementations>
         <Parameters>
-            <Parameter name="expr" permittedDataTypes="Byte|Integer|Long|Real"/>
+            <Parameter name="expr" permittedDataTypes="Real|Long|Integer|Byte"/>
+        </Parameters>
+    </Function>
+    <Function appliesTo="column" name="mean" returnType="Real"> <!-- An overload of the avg function -->
+        <Implementations>            
+            <Implementation modifier="instance" jar="" namespace="xqt.model.functions.aggregates" class="Average" method="move" />
+        </Implementations>
+        <Parameters>
+            <Parameter name="expr" permittedDataTypes="Real|Long|Integer|Byte"/>
         </Parameters>
     </Function>
     <Function appliesTo="column" name="min" returnType="Real">
@@ -31,7 +39,7 @@
             <Implementation modifier="instance" jar="" namespace="xqt.model.functions.aggregates" class="Minimum" method="move" />
         </Implementations>
         <Parameters>
-            <Parameter name="expr" permittedDataTypes="Byte|Integer|Long|Real"/>
+            <Parameter name="expr" permittedDataTypes="Real|Long|Integer|Byte"/>
         </Parameters>
     </Function>
     <Function appliesTo="column" name="max" returnType="Real">
@@ -39,7 +47,7 @@
             <Implementation modifier="instance" jar="" namespace="xqt.model.functions.aggregates" class="Maximum" method="move" />
         </Implementations>
         <Parameters>
-            <Parameter name="expr" permittedDataTypes="Byte|Integer|Long|Real"/>
+            <Parameter name="expr" permittedDataTypes="Real|Long|Integer|Byte"/>
         </Parameters>
     </Function>
 </Functions>

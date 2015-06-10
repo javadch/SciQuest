@@ -45,8 +45,8 @@ public class Driver {
     private static void processInput() throws FileNotFoundException, IOException {
         String inputFile = "D:\\javad\\Projects\\XQtProjects\\XQt\\xqt.test\\src\\main\\java\\xqt\\test\\scripts\\testcase1.txt";
         //if ( args.length>0 ) inputFile = args[0];
-        InputStream is = new FileInputStream(inputFile);
-        LanguageServicePoint lsp = new LanguageServicePoint(is);
+        LanguageServicePoint lsp = new LanguageServicePoint();
+        lsp.registerScript(inputFile);
         lsp.process();
             if(lsp.getEngine().getProcessModel().hasError()){
                 System.out.println("The script submitted contains errors.\n");
@@ -78,5 +78,8 @@ public class Driver {
 //            }
 //        });
     }
-    
+   
+    public String getInfo(){
+        return "XQt Workbench version 0.2.0";
+    }
 }

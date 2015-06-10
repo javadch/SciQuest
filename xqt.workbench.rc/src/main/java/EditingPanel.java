@@ -34,7 +34,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Set;
@@ -458,6 +463,7 @@ public class EditingPanel extends ResizablePanel{
     }
     
     public void run(){
+        testFunctionsHere();
         runButton.setEnabled(false);
         initDataFrame();
 //        try {
@@ -479,5 +485,19 @@ public class EditingPanel extends ResizablePanel{
 
     public void dispose() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    private void testFunctionsHere(){
+//        SimpleDateFormat dtf = new SimpleDateFormat("HH:mm");
+//        try {
+//            Date dt = dtf.parse("11:25");
+//            Date timex2 = ( ( xqt.adapters.builtin.functions.String.toDate 
+//        ( ( xqt.adapters.builtin.functions.String.trim 
+//        ( String.valueOf("11:23") , "\"" ) ), "HH:mm" ) ));
+//            String s = dt.toString();
+//            
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EditingPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

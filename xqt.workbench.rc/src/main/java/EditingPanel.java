@@ -121,15 +121,15 @@ public class EditingPanel extends ResizablePanel{
         this.revalidate();
     }
     
-    public synchronized void addTabularTab(String title, Resultset resultSet){
+    public synchronized void addTabularTab(Variable variable){
         //dataPane.addTab(title, createTable(resultSet)); // JTable+data
-        dataPane.addTab(title, createTablePanel(resultSet));
+        dataPane.addTab(variable.getName(), createTablePanel(variable));
 //        dataPane.revalidate();
         this.revalidate();
     }
         
-    public synchronized void addChartTab(String title, Resultset resultSet){
-        dataPane.addTab(title, createChart(resultSet)); // JTable+data
+    public synchronized void addChartTab(Variable variable){
+        dataPane.addTab(variable.getName(), createChart(variable)); // JTable+data
 //        dataPane.revalidate();
         this.revalidate();
     }
@@ -147,23 +147,23 @@ public class EditingPanel extends ResizablePanel{
         return workspacePane;
     }
 
-    private static Component createChart(Resultset resultSet) {
-        Chart chart = (Chart)resultSet.getData();
+    private static Component createChart(Variable variable) {
+        Chart chart = (Chart)variable.getResult().getData();
         JScrollPane scroll = Utilities.createScrollPane(chart);
         return scroll;        
     }
     
-    private static Component createTable(Resultset resultset) {
-        //List<String> columns = resultset.getSchema().stream().map(p-> p.getName()).collect(Collectors.toList());
-        DefaultTableModel tableModel = populateTableModel(resultset);
-        JTable table = new JTable();
-        table.setModel(tableModel);
-        JScrollPane scroll = Utilities.createScrollPane(table);
-        return scroll;
-    }
+//    private static Component createTable(Resultset resultset) {
+//        //List<String> columns = resultset.getSchema().stream().map(p-> p.getName()).collect(Collectors.toList());
+//        DefaultTableModel tableModel = populateTableModel(resultset);
+//        JTable table = new JTable();
+//        table.setModel(tableModel);
+//        JScrollPane scroll = Utilities.createScrollPane(table);
+//        return scroll;
+//    }
 
-    private static Component createTablePanel(Resultset resultset) {
-        DefaultTableModel tableModel = populateTableModel(resultset);
+    private static Component createTablePanel(Variable variable) {
+        DefaultTableModel tableModel = populateTableModel(variable);
         
         final SortableTable table = new SortableTable(tableModel);
         //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -196,38 +196,67 @@ public class EditingPanel extends ResizablePanel{
         return panel;
     }
     
-    private static DefaultTableModel populateTableModel(Resultset resultset){
-       DefaultTableModel tableModel = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        }; 
-        List<String> columnNames = resultset.getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
-        tableModel.setColumnIdentifiers(columnNames.toArray(new String[columnNames.size()]));
-        if (resultset.getTabularData()!= null && resultset.getTabularData().size() > 0) {
-            List<Object> pagedData = resultset.getTabularData().stream().collect(Collectors.toList());            
-            Class<?> clazz = pagedData.get(0).getClass();
-            Object[] tableRow = new Object[columnNames.size()];
-                for(Object row: pagedData) {            
-                    for(int i=0; i<columnNames.size(); i++){
-                        try {
-                            Field field = clazz.getField(columnNames.get(i));
-                            try {
-                                tableRow[i] = field.get(row);
-                            } catch (IllegalArgumentException | IllegalAccessException ex) {
-                                tableRow[i] = "ERROR";
-                            }
-                        } catch (NoSuchFieldException | SecurityException ex) {
-                            tableRow[i] = "ERROR";
-                        }
-                    }
-                    tableModel.addRow(tableRow);
-                }
-        }     
-       return tableModel;
-    }
+//    private static DefaultTableModel populateTableModel2(Variable variable){
+//        List<String> columnNames = variable.getResult().getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
+//    
+//        DefaultTableModel tableModel = new DefaultTableModel(variable.getResultAsArray(), columnNames.toArray())
+//        {
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return false;
+//            }
+//        }
+//        ; 
+//
+//       return tableModel;
+//    }
   
+    // seems to be faster than the populateTableModel2
+    private static DefaultTableModel populateTableModel(Variable variable){
+        List<String> columnNames = variable.getResult().getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
+        DefaultTableModel tableModel = new DefaultTableModel() {
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                 return false;
+             }
+         }; 
+        int colSize = columnNames.size();
+        tableModel.setColumnIdentifiers(columnNames.toArray(new String[colSize]));
+        if (variable.getResult().getTabularData()!= null && variable.getResult().getTabularData().size() > 0) {                        
+            Class<?> clazz = null;
+            if(variable.getExecutionInfo().getEntitySource()!= null){
+                clazz = variable.getExecutionInfo().getEntitySource().getCompiledClass();
+            }
+            if (clazz == null){
+                clazz = variable.getResult().getTabularData().get(0).getClass();
+            }
+            if(clazz == null)
+                return tableModel;
+            
+            Field[] fields = new Field[colSize];
+            for(int col =0; col<colSize; col++){ // store the fields in an array for faster pickup in the loops
+                try {
+                    fields[col] = clazz.getField(columnNames.get(col));
+                } catch(NoSuchFieldException | SecurityException ex){
+                    
+                }
+            }
+        
+            Object[] tableRow = new Object[colSize];
+            for(Object row: variable.getResult().getTabularData()) {            
+                for(int col=0; col<colSize; col++){
+                    try {
+                        tableRow[col] = fields[col].get(row);
+                    } catch (IllegalArgumentException | IllegalAccessException ex) {
+                        tableRow[col] = "ERROR";
+                    }
+                }
+                tableModel.addRow(tableRow);
+            }
+        }
+        return tableModel;
+    }
+    
     private void initCodeEditor(String fileName) {
         codeEditor = new CodeEditor();
         codeEditor.setFileName(fileName);
@@ -341,10 +370,16 @@ public class EditingPanel extends ResizablePanel{
         int errorCount = 0;
         @Override
         protected LanguageServicePoint doInBackground()  {
-            LanguageServicePoint lsp = new LanguageServicePoint(processScript);
+            LanguageServicePoint lsp = new LanguageServicePoint();
+            lsp.addScript(processScript);
             if(!lsp.hasError()){
                 long start = System.nanoTime();
-                lsp.process();
+//                lsp.registerScript("C:\\Users\\standard\\Documents\\SampleProjects\\eval\\processes\\RTest.xqt.txt");
+                String ret = lsp.process();
+//                Object data = lsp.getVariable("var1");
+//                Object schema = lsp.getVariableSchema("var1");
+//                Object data2 = lsp.getVariable("Diana");
+//                String err = lsp.getErrors();
                 long end = System.nanoTime();
                 elapsedTime = (double)(end - start) / 1000000000;
                 errorCount = 0;
@@ -397,12 +432,12 @@ public class EditingPanel extends ResizablePanel{
                             switch (v.getResult().getResultsetType()){
                                 case Tabular:{
                                     outputArea.append("Statement " + s.getId() + " was executed. Its result is in the variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
-                                    addTabularTab(v.getName(), v.getResult()); 
+                                    addTabularTab(v); 
                                     break;
                                 }
                                 case Image: {
                                     outputArea.append("Statement " + s.getId() + " was executed.  Its result is in the variable: '" + v.getName() + "'.\n");
-                                    addChartTab(v.getName(), v.getResult()); 
+                                    addChartTab(v); 
                                     break;
                                 }
                             }

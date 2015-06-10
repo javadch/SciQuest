@@ -24,6 +24,5 @@ public class Driver {
             Shell shell = new Shell();
             shell.showUp(true);
         });
-
     }
 }

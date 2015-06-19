@@ -162,7 +162,7 @@
             </Parameter>
         </Parameters>
     </Function>    
-    <Function appliesTo="value" name="toDouble" returnType="Real">
+    <Function appliesTo="value" name="toReal" returnType="Real">
         <Implementations>            
             <Implementation modifier="static" jar="" namespace="xqt.adapters.builtin.functions" class="String" method="toDouble" />
         </Implementations>

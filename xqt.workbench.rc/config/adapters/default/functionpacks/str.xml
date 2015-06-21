@@ -135,6 +135,17 @@
             </Parameter>
         </Parameters>
     </Function>
+    <Function appliesTo="value" name="format" returnType="String">
+        <Implementations>            
+            <Implementation modifier="static" jar="" namespace="xqt.adapters.builtin.functions" class="String" method="format" />
+        </Implementations>
+        <Parameters>
+            <Parameter name="pattern" permittedDataTypes="String">
+            </Parameter>
+            <Parameter name="arguments" permittedDataTypes="Object" varArg="true">
+            </Parameter>
+        </Parameters>
+    </Function>
     <Function appliesTo="value" name="upper" returnType="String">
         <Implementations>            
             <Implementation modifier="static" jar="" namespace="xqt.adapters.builtin.functions" class="String" method="upper" />

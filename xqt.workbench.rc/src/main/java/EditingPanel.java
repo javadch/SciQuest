@@ -62,6 +62,7 @@ import xqt.api.LanguageServicePoint;
 import xqt.model.data.Resultset;
 import xqt.model.data.Variable;
 import xqt.model.exceptions.LanguageException;
+import xqt.model.statements.StatementDescriptor;
 
 /**
  *
@@ -126,7 +127,7 @@ public class EditingPanel extends ResizablePanel{
         this.revalidate();
     }
     
-    public synchronized void addTabularTab(Variable variable){
+    public synchronized void addTabularTab(Variable variable)throws Exception{
         //dataPane.addTab(title, createTable(resultSet)); // JTable+data
         dataPane.addTab(variable.getName(), createTablePanel(variable));
 //        dataPane.revalidate();
@@ -167,7 +168,7 @@ public class EditingPanel extends ResizablePanel{
 //        return scroll;
 //    }
 
-    private static Component createTablePanel(Variable variable) {
+    private static Component createTablePanel(Variable variable) throws Exception{
         DefaultTableModel tableModel = populateTableModel(variable);
         
         final SortableTable table = new SortableTable(tableModel);
@@ -217,7 +218,7 @@ public class EditingPanel extends ResizablePanel{
 //    }
   
     // seems to be faster than the populateTableModel2
-    private static DefaultTableModel populateTableModel(Variable variable){
+    private static DefaultTableModel populateTableModel(Variable variable) throws Exception{
         List<String> columnNames = variable.getResult().getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
         DefaultTableModel tableModel = new DefaultTableModel() {
              @Override
@@ -243,7 +244,8 @@ public class EditingPanel extends ResizablePanel{
                 try {
                     fields[col] = clazz.getField(columnNames.get(col));
                 } catch(NoSuchFieldException | SecurityException ex){
-                    
+                    String x = columnNames.get(col) + " not found in the result set of variable " + variable.getName();
+                    throw new Exception(x);
                 }
             }
         
@@ -428,31 +430,36 @@ public class EditingPanel extends ResizablePanel{
                 outputArea.append("**************************************************************************************\n");
                 outputArea.append("****************************** Statement Execution Results ********************************\n");
                 outputArea.append("**************************************************************************************\n");
-                lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((s) -> {
-                    if(s.hasExecutionInfo()){
-                        if(!s.getExecutionInfo().isExecuted()){
-                            outputArea.append("Statement " + s.getId() + " was NOT executed.\n");
-                        } else if(s.hasResult()){
-                            Variable v = s.getExecutionInfo().getVariable();
-                            switch (v.getResult().getResultsetType()){
-                                case Tabular:{
-                                    outputArea.append("Statement " + s.getId() + " was executed. Its result is in the variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
-                                    addTabularTab(v); 
-                                    break;
+                //lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((stmt) -> {
+                for(StatementDescriptor stmt: lsp.getEngine().getProcessModel().getStatements().values()){
+                    try{
+                        if(stmt.hasExecutionInfo()){
+                            if(!stmt.getExecutionInfo().isExecuted()){
+                                outputArea.append("Statement " + stmt.getId() + " was NOT executed.\n");
+                            } else if(stmt.hasResult()){
+                                Variable v = stmt.getExecutionInfo().getVariable();
+                                switch (v.getResult().getResultsetType()){
+                                    case Tabular:{
+                                        outputArea.append("Statement " + stmt.getId() + " was executed. Its result is in variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
+                                        addTabularTab(v); 
+                                        break;
+                                    }
+                                    case Image: {
+                                        outputArea.append("Statement " + stmt.getId() + " was executed.  Its result is in variable: '" + v.getName() + "'.\n");
+                                        addChartTab(v); 
+                                        break;
+                                    }
                                 }
-                                case Image: {
-                                    outputArea.append("Statement " + s.getId() + " was executed.  Its result is in the variable: '" + v.getName() + "'.\n");
-                                    addChartTab(v); 
-                                    break;
-                                }
-                            }
+                            } else {
+                                outputArea.append("Statement " + stmt.getId() + " was executed but returned no result.\n");
+                            }                      
                         } else {
-                            outputArea.append("Statement " + s.getId() + " was executed but returned no result.\n");
-                        }                      
-                    } else {
-                        outputArea.append("Statement " + s.getId() + " was NOT executed.\n");
+                            outputArea.append("Statement " + stmt.getId() + " was NOT executed.\n");
+                        }
+                    } catch (Exception ex){
+                        outputArea.append("Not able to present the resultset of statement " + stmt.getId() + ". The internal error is: " + ex.getMessage() + "\n");
                     }
-                });
+                }//);
             }    
         outputArea.append("**************************************************************************************\n");
         outputArea.append("******************************** Process Execution Time **********************************\n");

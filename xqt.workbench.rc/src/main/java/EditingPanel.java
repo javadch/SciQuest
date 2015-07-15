@@ -154,7 +154,7 @@ public class EditingPanel extends ResizablePanel{
     }
 
     private static Component createChart(Variable variable) {
-        Chart chart = (Chart)variable.getResult().getData();
+        JPanel chart = (JPanel)variable.getResult().getData();
         JScrollPane scroll = Utilities.createScrollPane(chart);
         return scroll;        
     }
@@ -495,16 +495,6 @@ public class EditingPanel extends ResizablePanel{
     }
     
     private void testFunctionsHere(){
-//        SimpleDateFormat dtf = new SimpleDateFormat("HH:mm");
-//        try {
-//            Date dt = dtf.parse("11:25");
-//            Date timex2 = ( ( xqt.adapters.builtin.functions.String.toDate 
-//        ( ( xqt.adapters.builtin.functions.String.trim 
-//        ( String.valueOf("11:23") , "\"" ) ), "HH:mm" ) ));
-//            String s = dt.toString();
-//            
-//        } catch (ParseException ex) {
-//            Logger.getLogger(EditingPanel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
     }
 }

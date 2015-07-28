@@ -168,7 +168,7 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
             private void openDocumentDoubleClick(int selRow, TreePath selPath) {
                 String fileToOpen = selPath.getLastPathComponent().toString();                
                 // on script file double click: add another editor component
-                if(fileToOpen.endsWith(".xqt.txt")){
+                if(fileToOpen.endsWith(".xqt")){
                     openDocument(fileToOpen);
                 }
             }
@@ -182,12 +182,12 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
     public void createProject(String path){
         // create a project in the path folder
         // create sub folders: config, data, processes
-        // create process1.xqt.txt in the processes folder        
+        // create process1.xqt in the processes folder        
         try {
             Files.createDirectories(Paths.get(path, "configs"));
             Files.createDirectories(Paths.get(path, "data"));
             Files.createDirectories(Paths.get(path, "processes"));
-            Files.createFile(Paths.get(path, "processes", "process1.xqt.txt"));
+            Files.createFile(Paths.get(path, "processes", "process1.xqt"));
             openProject(path, true);
         } catch (IOException ex) {
             Logger.getLogger(Shell.class.getName()).log(Level.SEVERE, null, ex);
@@ -241,7 +241,7 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
     public void createDocument(){        
         String result = JideOptionPane.showInputDialog("Enter a process file name");
         if ((result != null) && (result.length() > 0)) {            
-            Path processesPath = Paths.get(activeProjectPath, "processes", result + ".xqt.txt");
+            Path processesPath = Paths.get(activeProjectPath, "processes", result + ".xqt");
             File processFolder = processesPath.toFile();
             if(processFolder.exists()){
                 JideOptionPane.showMessageDialog(workspacePane, "Process file " + result + "exists.");

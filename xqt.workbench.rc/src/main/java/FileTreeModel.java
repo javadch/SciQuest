@@ -70,9 +70,9 @@ public class FileTreeModel implements TreeModel, Serializable, Cloneable {
 
                 for (int len = c.length, i = 0; i < len; i++) {
                     if (!c[i].isHidden()) {
-                        if(f.getName().toUpperCase().equals("PROCESSES") && c[i].getName().endsWith(".xqt.txt")){
+                        if(f.getName().toUpperCase().equals("PROCESSES") && c[i].getName().endsWith(".xqt")){
                             children.add(c[i]);                            
-                        } else if(f.getName().toUpperCase().equals("CONFIGS") && c[i].getName().endsWith(".cfg.txt")){
+                        } else if(f.getName().toUpperCase().equals("CONFIGS") && c[i].getName().endsWith(".xqf")){
                             children.add(c[i]);                            
                         } else if(c[i].isDirectory()){
                             children.add(c[i]);

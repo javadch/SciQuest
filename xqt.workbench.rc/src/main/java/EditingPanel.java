@@ -381,7 +381,7 @@ public class EditingPanel extends ResizablePanel{
             lsp.addScript(processScript);
             if(!lsp.hasError()){
                 long start = System.nanoTime();
-//                lsp.registerScript("C:\\Users\\standard\\Documents\\SampleProjects\\eval\\processes\\RTest.xqt.txt");
+//                lsp.registerScript("C:\\Users\\standard\\Documents\\SampleProjects\\eval\\processes\\RTest.xqt");
                 String ret = lsp.process();
 //                Object data = lsp.getVariable("var1");
 //                Object schema = lsp.getVariableSchema("var1");

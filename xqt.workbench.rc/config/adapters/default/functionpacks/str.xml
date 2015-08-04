@@ -74,7 +74,7 @@
         <Parameters>
             <Parameter name="s" permittedDataTypes="String">
             </Parameter>
-            <Parameter name="character" permittedDataTypes="String">
+            <Parameter name="pattern" permittedDataTypes="String">
             </Parameter>
         </Parameters>
     </Function>
@@ -107,7 +107,7 @@
         <Parameters>
             <Parameter name="s" permittedDataTypes="String">
             </Parameter>
-            <Parameter name="character" permittedDataTypes="String">
+            <Parameter name="pattern" permittedDataTypes="String">
             </Parameter>
         </Parameters>
     </Function>
@@ -131,7 +131,7 @@
         <Parameters>
             <Parameter name="s" permittedDataTypes="String">
             </Parameter>
-            <Parameter name="character" permittedDataTypes="String">
+            <Parameter name="pattern" permittedDataTypes="String">
             </Parameter>
         </Parameters>
     </Function>

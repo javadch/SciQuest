@@ -45,7 +45,7 @@ public class Driver {
     private static void processInput() throws FileNotFoundException, IOException {
         String inputFile = "D:\\javad\\Projects\\XQtProjects\\XQt\\xqt.test\\src\\main\\java\\xqt\\test\\scripts\\testcase1.txt";
         //if ( args.length>0 ) inputFile = args[0];
-        LanguageServicePoint lsp = new LanguageServicePoint();
+        LanguageServicePoint lsp = new LanguageServicePoint(".");
         lsp.registerScript(inputFile);
         lsp.process();
             if(lsp.getEngine().getProcessModel().hasError()){

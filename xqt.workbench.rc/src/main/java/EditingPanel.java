@@ -377,7 +377,7 @@ public class EditingPanel extends ResizablePanel{
         int errorCount = 0;
         @Override
         protected LanguageServicePoint doInBackground()  {
-            LanguageServicePoint lsp = new LanguageServicePoint();
+            LanguageServicePoint lsp = new LanguageServicePoint(".");
             lsp.addScript(processScript);
             if(!lsp.hasError()){
                 long start = System.nanoTime();

@@ -38,6 +38,8 @@ public class XQtTokenMarker extends SQLTokenMarker {
         // PERSPECTIVE
         xqtKeywords.add("PERSPECTIVE",Token.KEYWORD1);
         xqtKeywords.add("PERS",Token.KEYWORD1);
+        xqtKeywords.add("USING",Token.KEYWORD1);
+        xqtKeywords.add("USE",Token.KEYWORD1);
         xqtKeywords.add("EXTENDS",Token.KEYWORD1);   
         xqtKeywords.add("MapTo",Token.KEYWORD1);   
         xqtKeywords.add("ATTRIBUTE",Token.KEYWORD1);
@@ -51,9 +53,10 @@ public class XQtTokenMarker extends SQLTokenMarker {
         
         //BIND
         xqtKeywords.add("BIND",Token.KEYWORD1);
+        xqtKeywords.add("SCOPE",Token.KEYWORD1);
+        xqtKeywords.add("VERSION",Token.KEYWORD1);
 
         // SELECT
-        xqtKeywords.add("SCOPE",Token.KEYWORD1);
         xqtKeywords.add("LIMIT",Token.KEYWORD1);
         xqtKeywords.add("SKIP",Token.KEYWORD1);
         xqtKeywords.add("TAKE",Token.KEYWORD1);

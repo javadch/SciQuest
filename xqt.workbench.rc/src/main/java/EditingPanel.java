@@ -377,20 +377,20 @@ public class EditingPanel extends ResizablePanel{
         int errorCount = 0;
         @Override
         protected LanguageServicePoint doInBackground()  {
-            LanguageServicePoint lsp = new LanguageServicePoint(".");
-            lsp.addScript(processScript);
-            if(!lsp.hasError()){
-                long start = System.nanoTime();
-//                lsp.registerScript("C:\\Users\\standard\\Documents\\SampleProjects\\eval\\processes\\RTest.xqt");
-                String ret = lsp.process();
-//                Object data = lsp.getVariable("var1");
-//                Object schema = lsp.getVariableSchema("var1");
-//                Object data2 = lsp.getVariable("Diana");
-//                String err = lsp.getErrors();
-                long end = System.nanoTime();
-                elapsedTime = (double)(end - start) / 1000000000;
-                errorCount = 0;
-            }
+            LanguageServicePoint lsp = null;
+            try {
+                lsp = new LanguageServicePoint(".");
+                lsp.addScript(processScript);
+                if(!lsp.hasError()){
+                    long start = System.nanoTime();
+                    String ret = lsp.process();
+                    long end = System.nanoTime();
+                    elapsedTime = (double)(end - start) / 1000000000;
+                    errorCount = 0;
+                }
+            } catch (Exception ex) { // execution errors
+                outputArea.append("Program execution was interrupted. " + ex.getMessage() + "\n");
+            } 
             return lsp;
         }
         

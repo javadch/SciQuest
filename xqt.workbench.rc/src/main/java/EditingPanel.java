@@ -66,10 +66,12 @@ import xqt.model.statements.StatementDescriptor;
 
 /**
  *
- * @author jfd
+ * @author Javad Chamanara
  */
 public class EditingPanel extends ResizablePanel{
-    private CodeEditor codeEditor;
+
+	private static final long serialVersionUID = 1L;
+	private CodeEditor codeEditor;
     private DockableFrame dataFrame = null;
     private JideTabbedPane dataPane;
     private final JScrollPane editorPane;
@@ -100,7 +102,7 @@ public class EditingPanel extends ResizablePanel{
         initCodeEditor(filePath);
         editorPane = Utilities.createScrollPane(codeEditor);
         editorPane.setPreferredSize(new Dimension(200, 200));
-        splitPane.add(editorPane); // above the spliter
+        splitPane.add(editorPane); // above the splitter
         //splitPane.add(new JButton("Test"));
 
         CodeEditorStatusBar codeStatusBar = prepareCodeSatusBar();

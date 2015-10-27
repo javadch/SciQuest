@@ -1,84 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry excluding="**/*.java" including="**/*.java" kind="src" path="src/main/resources"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-action/3.6.0/jide-action-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-action/3.6.0/jide-action-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-common/3.6.0/jide-common-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-common/3.6.0/jide-common-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-components/3.6.0/jide-components-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-components/3.6.0/jide-components-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-dock/3.6.0/jide-dock-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-dock/3.6.0/jide-dock-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-editor/3.6.0/jide-editor-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-editor/3.6.0/jide-editor-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-grids/3.6.0/jide-grids-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-grids/3.6.0/jide-grids-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-shortcut/3.6.0/jide-shortcut-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-shortcut/3.6.0/jide-shortcut-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-beaninfo/3.6.0/jide-beaninfo-3.6.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-dialogs/3.6.0/jide-dialogs-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-dialogs/3.6.0/jide-dialogs-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-charts/3.6.0/jide-charts-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-charts/3.6.0/jide-charts-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-dashboard/3.6.0/jide-dashboard-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-dashboard/3.6.0/jide-dashboard-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-data/3.6.0/jide-data-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-data/3.6.0/jide-data-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-designer/3.6.0/jide-designer-3.6.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.4.0/xercesImpl-2.4.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/velocity/velocity-dep/1.4/velocity-dep-1.4.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-diff/3.6.0/jide-diff-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-diff/3.6.0/jide-diff-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-gantt/3.6.0/jide-gantt-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-gantt/3.6.0/jide-gantt-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-pivot/3.6.0/jide-pivot-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-pivot/3.6.0/jide-pivot-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-plaf/3.6.0/jide-plaf-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-plaf/3.6.0/jide-plaf-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-properties/3.6.0/jide-properties-3.6.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-rss/3.6.0/jide-rss-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-rss/3.6.0/jide-rss-3.6.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/informa/informa/0.7.0-alpha2/informa-0.7.0-alpha2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar"/>
-	<classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-treemap/3.6.0/jide-treemap-3.6.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41.jar" sourcepath="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/xqt.api/1.0-SNAPSHOT/xqt.api-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/xqt.runtime/1.0-SNAPSHOT/xqt.runtime-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/xqt.engine.interface/1.0-SNAPSHOT/xqt.engine.interface-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/xqt.model/1.0-SNAPSHOT/xqt.model-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/vaiona/vaiona.commons/1.0-SNAPSHOT/vaiona.commons-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/rythmengine/rythm-engine/1.0-b11-SNAPSHOT/rythm-engine-1.0-b11-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/eclipse/jdt/core/compiler/ecj/4.3.1/ecj-4.3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/stevesoft/pat/pat/1.5.3/pat-1.5.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/alibaba/fastjson/1.1.37/fastjson-1.1.37.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/mvel/mvel2/2.1.5.Final/mvel2-2.1.5.Final.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7.jar"/>
-	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0/lib/tools.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/antlr/antlr4-runtime/4.5/antlr4-runtime-4.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/abego/treelayout/org.abego.treelayout.core/1.0.1/org.abego.treelayout.core-1.0.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/engine/xqt.engines.builtin/1.0-SNAPSHOT/xqt.engines.builtin-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.csv/1.0-SNAPSHOT/xqt.adapters.csv-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/vaiona/vaiona.csvQuery/1.0-SNAPSHOT/vaiona.csvQuery-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/poi/poi/3.9/poi-3.9.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.5/commons-codec-1.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/poi/poi-ooxml-schemas/3.9/poi-ooxml-schemas-3.9.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/xmlbeans/xmlbeans/2.3.0/xmlbeans-2.3.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/stax/stax-api/1.0.1/stax-api-1.0.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.default/1.0-SNAPSHOT/xqt.adapters.default-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.dbms/1.0-SNAPSHOT/xqt.adapters.dbms-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/xqt.language/1.0-SNAPSHOT/xqt.language-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-action/3.6.0/jide-action-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-action/3.6.0/jide-action-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-common/3.6.0/jide-common-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-common/3.6.0/jide-common-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-components/3.6.0/jide-components-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-components/3.6.0/jide-components-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-dock/3.6.0/jide-dock-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-dock/3.6.0/jide-dock-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-editor/3.6.0/jide-editor-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-editor/3.6.0/jide-editor-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-grids/3.6.0/jide-grids-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-grids/3.6.0/jide-grids-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-shortcut/3.6.0/jide-shortcut-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-shortcut/3.6.0/jide-shortcut-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-beaninfo/3.6.0/jide-beaninfo-3.6.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-dialogs/3.6.0/jide-dialogs-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-dialogs/3.6.0/jide-dialogs-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-charts/3.6.0/jide-charts-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-charts/3.6.0/jide-charts-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-dashboard/3.6.0/jide-dashboard-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-dashboard/3.6.0/jide-dashboard-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-data/3.6.0/jide-data-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-data/3.6.0/jide-data-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-designer/3.6.0/jide-designer-3.6.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.4.0/xercesImpl-2.4.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/velocity/velocity-dep/1.4/velocity-dep-1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-diff/3.6.0/jide-diff-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-diff/3.6.0/jide-diff-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-gantt/3.6.0/jide-gantt-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-gantt/3.6.0/jide-gantt-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-pivot/3.6.0/jide-pivot-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-pivot/3.6.0/jide-pivot-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-plaf/3.6.0/jide-plaf-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-plaf/3.6.0/jide-plaf-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-properties/3.6.0/jide-properties-3.6.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-rss/3.6.0/jide-rss-3.6.0.jar" sourcepath="M2_REPO/com/jidesoft/jide-rss/3.6.0/jide-rss-3.6.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/informa/informa/0.7.0-alpha2/informa-0.7.0-alpha2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-treemap/3.6.0/jide-treemap-3.6.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41.jar" sourcepath="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/xqt.api/1.0-SNAPSHOT/xqt.api-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/xqt.runtime/1.0-SNAPSHOT/xqt.runtime-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/xqt.engine.interface/1.0-SNAPSHOT/xqt.engine.interface-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/xqt.model/1.0-SNAPSHOT/xqt.model-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/vaiona/vaiona.commons/1.0-SNAPSHOT/vaiona.commons-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/rythmengine/rythm-engine/1.0-b11-SNAPSHOT/rythm-engine-1.0-b11-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/jdt/core/compiler/ecj/4.3.1/ecj-4.3.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/stevesoft/pat/pat/1.5.3/pat-1.5.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/alibaba/fastjson/1.1.37/fastjson-1.1.37.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mvel/mvel2/2.1.5.Final/mvel2-2.1.5.Final.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+  <classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0/lib/tools.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/antlr/antlr4-runtime/4.5/antlr4-runtime-4.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/abego/treelayout/org.abego.treelayout.core/1.0.1/org.abego.treelayout.core-1.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/engine/xqt.engines.builtin/1.0-SNAPSHOT/xqt.engines.builtin-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.csv/1.0-SNAPSHOT/xqt.adapters.csv-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/vaiona/vaiona.csvQuery/1.0-SNAPSHOT/vaiona.csvQuery-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/poi/poi/3.9/poi-3.9.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.5/commons-codec-1.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/poi/poi-ooxml-schemas/3.9/poi-ooxml-schemas-3.9.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/xmlbeans/xmlbeans/2.3.0/xmlbeans-2.3.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/stax/stax-api/1.0.1/stax-api-1.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.default/1.0-SNAPSHOT/xqt.adapters.default-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.dbms/1.0-SNAPSHOT/xqt.adapters.dbms-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xqt/xqt.language/1.0-SNAPSHOT/xqt.language-1.0-SNAPSHOT.jar"/>
 </classpath>

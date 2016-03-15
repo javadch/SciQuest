@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -59,6 +60,8 @@ import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import xqt.api.AppInfo;
 import xqt.api.LanguageServicePoint;
+import xqt.api.LanguageServiceTask;
+import xqt.api.ProcessExecutionListener;
 import xqt.model.data.Resultset;
 import xqt.model.data.Variable;
 import xqt.model.exceptions.LanguageException;
@@ -68,8 +71,7 @@ import xqt.model.statements.StatementDescriptor;
  *
  * @author Javad Chamanara
  */
-public class EditingPanel extends ResizablePanel{
-
+public class EditingPanel extends ResizablePanel implements ProcessExecutionListener{
 	private static final long serialVersionUID = 1L;
 	private CodeEditor codeEditor;
     private DockableFrame dataFrame = null;
@@ -357,139 +359,17 @@ public class EditingPanel extends ResizablePanel{
         codeEditor.redo();
     }
     
-    /*
-    Provides a multi-threaded envoronment for the process execution.
-    In the UI, it is possible for the user to have more than one processes (code editors) open.
-    Runing one or more of the processes may take a long time. During the execution of one of running processes
-    the user may want to go to other processes to edit, author or look at their result sets. For the UI to be responsive in this situations
-    the LanguageServiceTask class is designed. the base class also contains some methods to show a sort of progress in therm of events. so that it is possible to show a progress bar if needed.
-    */
-    class LanguageServiceTask extends SwingWorker<LanguageServicePoint, String>{
-        String processScript = "";
-        double elapsedTime;
-        //LanguageServicePoint lsp;
-        
-        LanguageServiceTask(String processScript){
-            this.processScript = processScript;
-        }
-        
-        /*
-        Runs the process exeution task in the background using a separate thread.
-        */
-        int errorCount = 0;
-        @Override
-        protected LanguageServicePoint doInBackground()  {
-            LanguageServicePoint lsp = null;
-            try {
-                lsp = new LanguageServicePoint(".");
-                lsp.addScript(processScript);
-                if(!lsp.hasError()){
-                    long start = System.nanoTime();
-                    String ret = lsp.process();
-                    long end = System.nanoTime();
-                    elapsedTime = (double)(end - start) / 1000000000;
-                    errorCount = 0;
-                }
-            } catch (Exception ex) { // execution errors
-                outputArea.append("Program execution was interrupted. " + ex.getMessage() + "\n");
-            } 
-            return lsp;
-        }
-        
-        /*
-        Gets executed when the execution of the process is finished. the result is accessible by calling the get() method.
-        When called, it created proper UI elements like Tables, graphs an so on and updated the UI.
-        */
-        @Override
-        protected void done(){
-            LanguageServicePoint lsp = null; 
-            try {
-                lsp = get(); // check what happens if doInBackground throws an exception. answer: the lsp does not throw any expetion, instea it collects and returns an exception list.
-            } catch (InterruptedException | ExecutionException ex) { // execution errors
-                outputArea.append("Program execution was interrupted. " + ex.getMessage() + "\n");
-            } 
-            // see whether the process model contains any exception, if so throw an InputMismatchException
-            // to singal the callers to go through the process model and handle the actual exceptions.
-            
-            if(lsp != null && lsp.hasError()){ // lexical, syntax and ... error
-                outputArea.append("**************************************************************************************\n");
-                outputArea.append("************************************ Lexical Errors ***********************************\n");
-                outputArea.append("**************************************************************************************\n");
-                lsp.getExceptions().forEach(p-> {                    
-                    outputArea.append("Error " + ++errorCount + " : " + p.getMessage()+ "\n");  
-                }  
-                );
-            } 
-            if(lsp!=null && lsp.getEngine() != null && lsp.getEngine().getProcessModel() != null) {
-                if(lsp.getEngine().getProcessModel().hasError()){ // semantic errors
-                    outputArea.append("**************************************************************************************\n");
-                    outputArea.append("******************************* Synatx and Semantic Errors *******************************\n");
-                    outputArea.append("**************************************************************************************\n");
-                    lsp.getEngine().getProcessModel().getEffectiveErrors().forEach(p->
-                        {outputArea.append("Error " + ++errorCount + " : " + p.getMessage()+ "\n");  }  
-                    );
-                }             
-                outputArea.append("**************************************************************************************\n");
-                outputArea.append("****************************** Statement Execution Results ********************************\n");
-                outputArea.append("**************************************************************************************\n");
-                //lsp.getEngine().getProcessModel().getStatements().values().stream().forEachOrdered((stmt) -> {
-                for(StatementDescriptor stmt: lsp.getEngine().getProcessModel().getStatements().values()){
-                    try{
-                        if(stmt.hasExecutionInfo()){
-                            if(!stmt.getExecutionInfo().isExecuted()){
-                                outputArea.append("Statement " + stmt.getId() + " was NOT executed.\n");
-                            } else if(stmt.hasResult()){
-                                Variable v = stmt.getExecutionInfo().getVariable();
-                                switch (v.getResult().getResultsetType()){
-                                    case Tabular:{
-                                        outputArea.append("Statement " + stmt.getId() + " was executed. Its result is in variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
-                                        addTabularTab(v); 
-                                        break;
-                                    }
-                                    case Image: {
-                                        outputArea.append("Statement " + stmt.getId() + " was executed.  Its result is in variable: '" + v.getName() + "'.\n");
-                                        addChartTab(v); 
-                                        break;
-                                    }
-                                }
-                            } else {
-                                outputArea.append("Statement " + stmt.getId() + " was executed but returned no result.\n");
-                            }                      
-                        } else {
-                            outputArea.append("Statement " + stmt.getId() + " was NOT executed.\n");
-                        }
-                    } catch (Exception ex){
-                        outputArea.append("Not able to present the resultset of statement " + stmt.getId() + ". The internal error is: " + ex.getMessage() + "\n");
-                    }
-                }//);
-            }    
-        outputArea.append("**************************************************************************************\n");
-        outputArea.append("******************************** Process Execution Time **********************************\n");
-        outputArea.append("**************************************************************************************\n");
-        outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
-        runButton.setEnabled(true);
-    }
-    }
-    
+  
     public void run(){
-        testFunctionsHere();
-        runButton.setEnabled(false);
-        initDataFrame();
-//        try {
-//            //this.revalidate();
-//            codeEditor.getHighlighter().addHighlight(0, 10, painter);
-//        } catch (BadLocationException ex) {
-//            Logger.getLogger(EditingPanel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        outputArea.setText("");
-        outputArea.append(AppInfo.getFullName() + "\n");
-        outputArea.append(MessageFormat.format("executing the process script {0}", this.filePath) + "\n");
         // ----------------------- process -------------------------//
-        LanguageServiceTask task = new LanguageServiceTask(codeEditor.getText());
+    	// preparing for the execution is happening in the ProcessExecutionListener.executing method bellow
+        LanguageServiceTask task = new LanguageServiceTask(codeEditor.getText(), this);
         task.execute();
+        // recovering button, etc statuses and processing the execution report is happening happening in the ProcessExecutionListener.executing method bellow
         // ----------------------- process -------------------------//
         
         // there is no guarantee that the codes after the task.execute are run after it, because the task is executed in a separate thread.
+        // if concerned, put the code in the executed() function
     }
 
     public void dispose() {
@@ -499,4 +379,34 @@ public class EditingPanel extends ResizablePanel{
     private void testFunctionsHere(){
 
     }
+
+	@Override
+	public void executing() {
+        testFunctionsHere();
+        runButton.setEnabled(false);
+        initDataFrame();
+        outputArea.setText("");
+        outputArea.append(AppInfo.getFullName() + "\n");
+        outputArea.append(MessageFormat.format("executing process script {0}.\n", this.filePath));
+	}
+
+	@Override
+	public void executed(StringBuilder report) {
+        outputArea.append(report.toString());
+        runButton.setEnabled(true);
+	}
+
+	@Override
+	public void present(Variable v) {
+		try {
+			addTabularTab(v);
+		} catch (Exception e) {
+		}
+	}
+
+	@Override
+	public void draw(Variable v) {
+		addChartTab(v);
+	}
+
 }

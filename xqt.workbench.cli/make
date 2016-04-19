@@ -1,0 +1,5 @@
+#!/bin/bash
+rm -f -r -d "logs"
+rm -f -r -d "temp"
+mvn clean package assembly:single
+

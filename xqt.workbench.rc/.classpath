@@ -43,12 +43,10 @@
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7.jar"/>
 	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0/lib/tools.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/antlr/antlr4-runtime/4.5/antlr4-runtime-4.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/abego/treelayout/org.abego.treelayout.core/1.0.1/org.abego.treelayout.core-1.0.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/engine/xqt.engines.builtin/1.0-SNAPSHOT/xqt.engines.builtin-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xqt/engines/xqt.engines.builtin/1.0-SNAPSHOT/xqt.engines.builtin-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.csv/1.0-SNAPSHOT/xqt.adapters.csv-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/vaiona/vaiona.csvQuery/1.0-SNAPSHOT/vaiona.csvQuery-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/poi/poi/3.9/poi-3.9.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.5/commons-codec-1.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9.jar"/>
@@ -61,5 +59,6 @@
 	<classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.dbms/1.0-SNAPSHOT/xqt.adapters.dbms-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xqt/xqt.language/1.0-SNAPSHOT/xqt.language-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="/xqt.api"/>
+	<classpathentry kind="lib" path="/usr/lib/jvm/java-8-oracle/lib/tools.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

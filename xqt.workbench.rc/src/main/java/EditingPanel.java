@@ -221,6 +221,7 @@ public class EditingPanel extends ResizablePanel{
   
     // seems to be faster than the populateTableModel2
     private static DefaultTableModel populateTableModel(Variable variable) throws Exception{
+        List<String> columnIds = variable.getResult().getSchema().stream().map(p->p.getId()).collect(Collectors.toList());
         List<String> columnNames = variable.getResult().getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
         DefaultTableModel tableModel = new DefaultTableModel() {
              @Override
@@ -228,7 +229,7 @@ public class EditingPanel extends ResizablePanel{
                  return false;
              }
          }; 
-        int colSize = columnNames.size();
+        int colSize = columnIds.size();
         tableModel.setColumnIdentifiers(columnNames.toArray(new String[colSize]));
         if (variable.getResult().getTabularData()!= null && variable.getResult().getTabularData().size() > 0) {                        
             Class<?> clazz = null;
@@ -244,9 +245,9 @@ public class EditingPanel extends ResizablePanel{
             Field[] fields = new Field[colSize];
             for(int col =0; col<colSize; col++){ // store the fields in an array for faster pickup in the loops
                 try {
-                    fields[col] = clazz.getField(columnNames.get(col));
+                    fields[col] = clazz.getField(columnIds.get(col));
                 } catch(NoSuchFieldException | SecurityException ex){
-                    String x = columnNames.get(col) + " not found in the result set of variable " + variable.getName();
+                    String x = columnIds.get(col) + " not found in the result set of variable " + variable.getName();
                     throw new Exception(x);
                 }
             }
@@ -387,7 +388,7 @@ public class EditingPanel extends ResizablePanel{
                     long start = System.nanoTime();
                     String ret = lsp.process();
                     long end = System.nanoTime();
-                    elapsedTime = (double)(end - start) / 1000000000;
+                    elapsedTime = (double)(end - start) / 1000000;
                     errorCount = 0;
                 }
             } catch (Exception ex) { // execution errors
@@ -442,7 +443,7 @@ public class EditingPanel extends ResizablePanel{
                                 Variable v = stmt.getExecutionInfo().getVariable();
                                 switch (v.getResult().getResultsetType()){
                                     case Tabular:{
-                                        outputArea.append("Statement " + stmt.getId() + " was executed. Its result is in variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records.\n");
+                                        outputArea.append("Statement " + stmt.getId() + " was executed. Its result is in variable: '" + v.getName() + "' and contains " + v.getResult().getTabularData().size() + " records. It took " + stmt.getExecutionInfo().getExecutionTimeNano()/1000000 + " miliseconds.\n");
                                         addTabularTab(v); 
                                         break;
                                     }
@@ -466,7 +467,7 @@ public class EditingPanel extends ResizablePanel{
         outputArea.append("**************************************************************************************\n");
         outputArea.append("******************************** Process Execution Time **********************************\n");
         outputArea.append("**************************************************************************************\n");
-        outputArea.append("The execution finished in " + elapsedTime + " seconds\n");                     
+        outputArea.append("The execution finished in " + elapsedTime + " miliseconds\n");                     
         runButton.setEnabled(true);
     }
     }

@@ -1,7 +1,9 @@
+#!/bin/bash
 cd xqt.workbench.rc
-call make.bat
+./make
 cd ..
 
 cd xqt.workbench.cli
-call make.bat
+./make
 cd ..
+

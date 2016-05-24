@@ -223,7 +223,8 @@ public class EditingPanel extends ResizablePanel implements ProcessExecutionList
   
     // seems to be faster than the populateTableModel2
     private static DefaultTableModel populateTableModel(Variable variable) throws Exception{
-        List<String> columnIds = variable.getResult().getSchema().stream().map(p->p.getId()).collect(Collectors.toList());
+    	// Not clear why used IDs, and Names both!? Javad 24.05.2016
+        List<String> columnIds = variable.getResult().getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
         List<String> columnNames = variable.getResult().getSchema().stream().map(p->p.getName()).collect(Collectors.toList());
         DefaultTableModel tableModel = new DefaultTableModel() {
              @Override

@@ -5,7 +5,7 @@
             <Implementation modifier="instance" dialect="default" nativeCode="count"/>
         </Implementations>
         <Parameters>
-            <Parameter name="expr" permittedDataTypes="Boolean|Byte|String|Integer|Long|Real|Date"/>  
+            <Parameter name="expr" permittedDataTypes="Real|Long|Integer|Byte|String|Boolean|Date"/>  
         </Parameters>
         <!-- Add constarints to the parameters, and the return value. like pre/ post conditions-->     
         <!--The default java code of the function, a single chain of function calls, preferably one function.--> 

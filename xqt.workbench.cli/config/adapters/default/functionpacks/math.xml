@@ -15,7 +15,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="abs" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -42,7 +42,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="atan" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -51,7 +51,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="atn2" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -60,7 +60,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="ceil" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -69,7 +69,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="cos" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -78,7 +78,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="exp" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -87,7 +87,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="floor" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -96,7 +96,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="log" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -105,7 +105,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="log10" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -114,9 +114,9 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="logn" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
-            <Parameter name="base" permittedDataTypes="Byte|Integer|Long"/>
+            <Parameter name="base" permittedDataTypes="Long|Integer|Byte"/>
         </Parameters>
     </Function>
     <Function appliesTo="value" name="power" returnType="Real">
@@ -124,8 +124,8 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="pow" />
         </Implementations>
         <Parameters>
-            <Parameter name="base" permittedDataTypes="Byte|Integer|Long|Real"/>
-            <Parameter name="exponent" permittedDataTypes="Byte|Integer|Long|Real"/>
+            <Parameter name="base" permittedDataTypes="Real|Long|Integer|Byte"/>
+            <Parameter name="exponent" permittedDataTypes="Real|Long|Integer|Byte"/>
         </Parameters>
     </Function>
     <Function appliesTo="value" name="rand" returnType="Real">
@@ -149,7 +149,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sin" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -167,7 +167,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sqrt" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>
@@ -176,7 +176,7 @@
             <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="tan" />
         </Implementations>
         <Parameters>
-            <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
+            <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
             </Parameter>
         </Parameters>
     </Function>

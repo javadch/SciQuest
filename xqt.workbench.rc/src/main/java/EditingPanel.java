@@ -28,6 +28,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -382,6 +383,19 @@ public class EditingPanel extends ResizablePanel implements ProcessExecutionList
 
     }
 
+    @Override
+    public String getProcessPath() {
+    	try{
+    		File f = new File(this.getFilePath());
+    		if("processes".equalsIgnoreCase(f.getParentFile().getName()))
+    			return f.getParentFile().getParent(); // The process file is in a standard project structure
+    		else
+    			return f.getParent(); // The process file is a stand-alone file.
+    	} catch(Exception ex){
+    		return "";
+    	}
+    }
+    
 	@Override
 	public void executing() {
         testFunctionsHere();

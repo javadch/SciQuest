@@ -32,6 +32,11 @@ public class ProcessExecutionHelper implements ProcessExecutionListener {
         // grammar files
     }
 
+    @Override
+    public String getProcessPath() {
+    	return "";
+    }
+    
 	@Override
 	public void executing() {
 		// TODO Auto-generated method stub

@@ -2,7 +2,9 @@
 <Functions>
     <Function appliesTo="value" name="sample" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sample" dialect="default" native="" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="sample" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="example" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="eg" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Byte|Integer|Long|Real">
@@ -12,7 +14,9 @@
     </Function>
     <Function appliesTo="value" name="abs" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="abs" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="abs" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="abs" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="abs" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -21,7 +25,9 @@
     </Function>
     <Function appliesTo="value" name="ceiling" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="ceil" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="ceiling" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="ceiling" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="ceiling" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -30,7 +36,9 @@
     </Function>
     <Function appliesTo="value" name="exp" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="exp" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="exp" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="exp" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="exp" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -39,7 +47,9 @@
     </Function>
     <Function appliesTo="value" name="floor" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="floor" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="floor" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="floor" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="floor" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -48,7 +58,9 @@
     </Function>
     <Function appliesTo="value" name="log" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="log" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="ln" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="ln" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="ln" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -57,7 +69,9 @@
     </Function>
     <Function appliesTo="value" name="log10" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="log10" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="log" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="log" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="log" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -66,7 +80,9 @@
     </Function>
     <Function appliesTo="value" name="logn" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="logn" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="log" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="log" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="log" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -76,7 +92,9 @@
     </Function>
     <Function appliesTo="value" name="power" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="pow" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="power" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="power" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="power" />
         </Implementations>
         <Parameters>
             <Parameter name="base" permittedDataTypes="Real|Long|Integer|Byte"/>
@@ -85,7 +103,9 @@
     </Function>
     <Function appliesTo="value" name="sqrt" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="sqrt" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="sqrt" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="sqrt" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="sqrt" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -94,14 +114,18 @@
     </Function>
     <Function appliesTo="value" name="rand" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="random" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="random" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="random" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="random" />
         </Implementations>
         <Parameters>
         </Parameters>
     </Function>
     <Function appliesTo="value" name="round" returnType="Long">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="round" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="round" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="round" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="round" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real">
@@ -110,7 +134,9 @@
     </Function>
     <Function appliesTo="value" name="acos" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="acos" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="acos" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="acos" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="acos" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real">
@@ -119,7 +145,9 @@
     </Function>
     <Function appliesTo="value" name="asin" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="asin" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="asin" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="asin" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="asin" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real">
@@ -128,7 +156,9 @@
     </Function>
     <Function appliesTo="value" name="atan" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="atan" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="atan" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="atan" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="atan" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -137,7 +167,9 @@
     </Function>
     <Function appliesTo="value" name="atn2" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="atn2" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="atan2" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="atan2" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="atan2" />
         </Implementations>
         <Parameters>
             <Parameter name="y" permittedDataTypes="Real|Long|Integer|Byte"/>
@@ -155,7 +187,9 @@
     </Function>
     <Function appliesTo="value" name="cos" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="cos" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="cos" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="cos" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="cos" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real|Long|Integer|Byte">
@@ -173,7 +207,9 @@
     </Function>
     <Function appliesTo="value" name="degreesof" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="toDegrees" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="degrees" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="degrees" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="degrees" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real">
@@ -182,11 +218,14 @@
     </Function>
     <Function appliesTo="value" name="radiansof" returnType="Real">
         <Implementations>            
-            <Implementation modifier="static" jar="" namespace="java.lang" class="Math" method="toRadians" />
+            <Implementation modifier="instance" dialect="MSSQL" nativeCode="radians" />
+            <Implementation modifier="instance" dialect="PostgreSQL" nativeCode="radians" />
+            <Implementation modifier="instance" dialect="MySQL" nativeCode="radians" />
         </Implementations>
         <Parameters>
             <Parameter name="input" permittedDataTypes="Real">
             </Parameter>
         </Parameters>
     </Function>
+    
 </Functions>

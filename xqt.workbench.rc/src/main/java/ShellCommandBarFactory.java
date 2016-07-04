@@ -208,7 +208,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {System.exit(0);
                 // check for open dirty process files and ask for save
-            	/// Added By Arefin
+            	/// Edited By Arefin 04.07.2016
             	//default icon, custom title
             	int n = JOptionPane.showConfirmDialog(null,
             	    "Do you want to save the Process Files?",

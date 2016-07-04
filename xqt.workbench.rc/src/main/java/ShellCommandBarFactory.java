@@ -3,12 +3,16 @@ import com.jidesoft.action.CommandBarFactory;
 import com.jidesoft.action.CommandMenuBar;
 import com.jidesoft.action.DefaultDockableBarDockableHolder;
 import com.jidesoft.action.DockableBarContext;
+import com.jidesoft.alert.Alert;
 import com.jidesoft.docking.DockableHolder;
 import com.jidesoft.docking.DockingManager;
 import com.jidesoft.status.MemoryStatusBarItem;
 import com.jidesoft.swing.JideBoxLayout;
 import com.jidesoft.swing.JideMenu;
 import com.jidesoft.swing.PersistenceUtils;
+
+import javafx.scene.control.Alert.AlertType;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.HeadlessException;
@@ -23,6 +27,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,7 +38,7 @@ import org.w3c.dom.Document;
  */
 public class ShellCommandBarFactory extends CommandBarFactory {
     public static String _lastDirectory = ".";
-
+   
     public static CommandBar createMenuCommandBar(Container container) {
         CommandBar commandBar = new CommandMenuBar("Menu Bar");
         commandBar.setInitSide(DockableBarContext.DOCK_SIDE_NORTH);
@@ -49,6 +54,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         commandBar.add(createToolsMenu(container));
         commandBar.add(createWindowsMenu(container));
         commandBar.add(createHelpMenu(container));
+       
         return commandBar;
     }
 
@@ -156,10 +162,11 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         JMenuItem item;
 
         JMenu menu = new JideMenu(ResourceManager.RB.getString("Shell.Menu.File.title"));
-        menu.setMnemonic(ResourceManager.RB.getString("Shell.Menu.File.mnemonic").charAt(0));
+        menu.setMnemonic(ResourceManager.RB.getString("Shell.Menu.FiSystem.exit(0);le.mnemonic").charAt(0));
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.ADD_NEW_ITEMS));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK)); // Added by arefin
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 createProjectDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -169,6 +176,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProcess.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.NewProcess.mnemonic").charAt(0));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK)); // Added by arefin
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 createProcessDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -178,6 +186,8 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.OpenProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.OPEN));
+        item.setMnemonic(ResourceManager.RB.getString("Shell.Menu.File.OpenProject.title").charAt(0));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_DOWN_MASK)); // Added by arefin
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 openDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -187,17 +197,32 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.CloseProject.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.CloseProject.mnemonic").charAt(0));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_DOWN_MASK)); // Added by arefin
         menu.add(item);
 
         menu.addSeparator();
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.Exit.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.Exit.mnemonic").charAt(0));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK)); // Added by arefin
         item.addActionListener(new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {System.exit(0);
                 // check for open dirty process files and ask for save
-                // save the layout silently
-                System.exit(0);
+            	/// Added By Arefin
+            	//default icon, custom title
+            	int n = JOptionPane.showConfirmDialog(null,
+            	    "Do you want to save the Process Files?",
+            	    "Exit!",
+            	    JOptionPane.YES_NO_OPTION);
+            		
+            		if(n==0){
+            			// save the layout silently
+            		((IShell)container).saveAllDocuments();
+            		System.exit(0);
+            		}
+            		else
+                    System.exit(0);
+            	///
             }
         });
         menu.add(item);

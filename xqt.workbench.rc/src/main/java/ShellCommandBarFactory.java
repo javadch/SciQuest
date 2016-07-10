@@ -166,7 +166,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.ADD_NEW_ITEMS));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK)); // Added by arefin
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK)); //Added by arefin 
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 createProjectDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -176,7 +176,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProcess.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.NewProcess.mnemonic").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK)); // Added by arefin
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK)); //Added by arefin
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 createProcessDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -187,7 +187,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.OpenProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.OPEN));
         item.setMnemonic(ResourceManager.RB.getString("Shell.Menu.File.OpenProject.title").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_DOWN_MASK)); // Added by arefin
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_DOWN_MASK)); //This line added by arefin
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 openDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -197,18 +197,18 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.CloseProject.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.CloseProject.mnemonic").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_DOWN_MASK)); // Added by arefin
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_DOWN_MASK)); //This line added by arefin
         menu.add(item);
 
         menu.addSeparator();
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.Exit.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.Exit.mnemonic").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK)); // Added by arefin
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK)); //This line added by arefin
         item.addActionListener(new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {System.exit(0);
+            public void actionPerformed(ActionEvent e) {
                 // check for open dirty process files and ask for save
-            	/// Edited By Arefin 04.07.2016
+            	/// The following Dialog is section added by arefin 04.07.2016
             	//default icon, custom title
             	int n = JOptionPane.showConfirmDialog(null,
             	    "Do you want to save the Process Files?",
@@ -222,7 +222,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
             		}
             		else
                     System.exit(0);
-            	///
+            	////End  Dialog
             }
         });
         menu.add(item);

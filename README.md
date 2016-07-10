@@ -3,3 +3,4 @@
 The IDE uses the [JideSoft's](http://www.jidesoft.com/) UI framework and components.
 
 **Note**: It is in the early steps of its road-map, so not production ready!
+**Note**: It is in the early steps of its road-map, so not production ready!

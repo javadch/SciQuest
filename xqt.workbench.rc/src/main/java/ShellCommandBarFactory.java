@@ -166,7 +166,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.ADD_NEW_ITEMS));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK)); //This line added by Arefin 
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK)); //This line added by added by Arefin 10.07.2016 
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 createProjectDialog(container, JFileChooser.DIRECTORIES_ONLY);

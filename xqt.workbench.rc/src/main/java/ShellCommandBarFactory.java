@@ -162,7 +162,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         JMenuItem item;
 
         JMenu menu = new JideMenu(ResourceManager.RB.getString("Shell.Menu.File.title"));
-        menu.setMnemonic(ResourceManager.RB.getString("Shell.Menu.FiSystem.exit(0);le.mnemonic").charAt(0));
+        menu.setMnemonic(ResourceManager.RB.getString("Shell.Menu.File.mnemonic").charAt(0));
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.ADD_NEW_ITEMS));
@@ -288,14 +288,20 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         //item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_MASK | InputEvent.ALT_MASK));        
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
+            	/*
                 if (container instanceof DockableHolder) {
                     DockingManager dockingManager = ((DockableHolder) container).getDockingManager();
-                    String frameKey = dockingManager.getNextFrame(dockingManager.getActiveFrameKey());
+                    String frameKey = dockingManager.getActiveFrameKey(); //getNextFrame(dockingManager.getActiveFrameKey());
                     if (frameKey != null) {
-                        //dockingManager.showFrame(frameKey);
-                        //run the script of the active doc!
+                        dockingManager.showFrame(frameKey);
+                       //run the script of the active doc!
+                        createRunButton();
+                       
                     }
-                }
+                }*/
+            	this.setEnabled(false);
+                runAllOpenProcesses(container);
+                this.setEnabled(true);
             }
         });
         menu.add(item);

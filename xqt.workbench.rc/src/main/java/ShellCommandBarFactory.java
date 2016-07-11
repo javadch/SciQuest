@@ -288,14 +288,17 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         //item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_MASK | InputEvent.ALT_MASK));        
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                if (container instanceof DockableHolder) {
+                /*if (container instanceof DockableHolder) {
                     DockingManager dockingManager = ((DockableHolder) container).getDockingManager();
                     String frameKey = dockingManager.getNextFrame(dockingManager.getActiveFrameKey());
-                    if (frameKey != null) {
+                    /*if (frameKey != null) {
                         //dockingManager.showFrame(frameKey);
                         //run the script of the active doc!
                     }
-                }
+                }*/
+            	this.setEnabled(false);
+                runAllOpenProcesses(container);
+                this.setEnabled(true);
             }
         });
         menu.add(item);

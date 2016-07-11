@@ -295,7 +295,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
                     if (frameKey != null) {
                         dockingManager.showFrame(frameKey);
                        //run the script of the active doc!
-                        createRunButton();
+                        createRunButton(); // What is a docking management?
                        
                     }
                 }*/

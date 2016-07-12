@@ -3,6 +3,7 @@ import com.jidesoft.action.CommandBarFactory;
 import com.jidesoft.action.CommandMenuBar;
 import com.jidesoft.action.DefaultDockableBarDockableHolder;
 import com.jidesoft.action.DockableBarContext;
+import com.jidesoft.action.DockableBarManager;
 import com.jidesoft.alert.Alert;
 import com.jidesoft.docking.DockableHolder;
 import com.jidesoft.docking.DockingManager;
@@ -162,11 +163,11 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         JMenuItem item;
 
         JMenu menu = new JideMenu(ResourceManager.RB.getString("Shell.Menu.File.title"));
-        menu.setMnemonic(ResourceManager.RB.getString("Shell.Menu.FiSystem.exit(0);le.mnemonic").charAt(0));
+        menu.setMnemonic(ResourceManager.RB.getString("Shell.Menu.File.mnemonic").charAt(0));
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.ADD_NEW_ITEMS));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK)); //This line added by added by Arefin 10.07.2016 
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK)); 
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 createProjectDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -176,7 +177,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.NewProcess.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.NewProcess.mnemonic").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK)); //This line added by added by Arefin 10.07.2016 
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK)); 
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 createProcessDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -187,7 +188,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.OpenProject.title"), 
                 ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.OPEN));
         item.setMnemonic(ResourceManager.RB.getString("Shell.Menu.File.OpenProject.title").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_DOWN_MASK)); //This line added by added by Arefin 10.07.2016 
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));  
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 openDialog(container, JFileChooser.DIRECTORIES_ONLY);
@@ -197,32 +198,32 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.CloseProject.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.CloseProject.mnemonic").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_DOWN_MASK)); //This line added by added by Arefin 10.07.2016 
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK));  
         menu.add(item);
 
         menu.addSeparator();
 
         item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.Exit.title"), 
                 ResourceManager.RB.getString("Shell.Menu.File.Exit.mnemonic").charAt(0));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK)); //This line added by added by Arefin 10.07.2016 
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK));  
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 // check for open dirty process files and ask for save
-            	/// The following Dialog is section added by Arefin 04.07.2016
             	//default icon, custom title
+            	int i=container.getComponentCount();
             	int n = JOptionPane.showConfirmDialog(null,
-            	    "Do you want to save the Process Files?",
+            	    "Do you want to save the Process Files?"+i,
             	    "Exit!",
-            	    JOptionPane.YES_NO_OPTION);
+            	    JOptionPane.YES_NO_CANCEL_OPTION);
             		
             		if(n==0){
-            			// save the layout silently
+            		// save the layout silently
             		((IShell)container).saveAllDocuments();
             		System.exit(0);
             		}
-            		else
+            		else if(n==1)
                     System.exit(0);
-            	////End  Dialog
+            	
             }
         });
         menu.add(item);
@@ -288,15 +289,8 @@ public class ShellCommandBarFactory extends CommandBarFactory {
         //item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_MASK | InputEvent.ALT_MASK));        
         item.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                /*if (container instanceof DockableHolder) {
-                    DockingManager dockingManager = ((DockableHolder) container).getDockingManager();
-                    String frameKey = dockingManager.getNextFrame(dockingManager.getActiveFrameKey());
-                    /*if (frameKey != null) {
-                        //dockingManager.showFrame(frameKey);
-                        //run the script of the active doc!
-                    }
-                }*/
-            	this.setEnabled(false);
+            	//Run the selected script Query.
+               	this.setEnabled(false);
                 runAllOpenProcesses(container);
                 this.setEnabled(true);
             }

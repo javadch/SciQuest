@@ -139,6 +139,19 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
         mainFrame.toFront();
         return mainFrame;
     }
+    
+    /**
+  	 *  Indicates if get any active document .
+  	 * 
+  	 *  @return true or false.
+  	 */
+    public boolean getActiveDocumentList(){
+    	String[] documentList=documentManagerPane.getDocumentNames();
+    	boolean docList= false;
+       	if(documentList.length>0)
+       		docList=true ;
+       	return docList; 
+    	}
 
     @Override
     public void openProject(String projectRootPath, Boolean closeDocuments) {     
@@ -151,6 +164,7 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
         //ShellDockableFrameFactory.resetProjectViewFrame();
         if(closeDocuments)
             documentManagerPane.closeAll();
+        
         MouseListener ml = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -442,5 +456,6 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell{
         return pane;
     }
 
+    
     
 }

@@ -208,6 +208,11 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 		item = new JMenuItem(ResourceManager.RB.getString("Shell.Menu.File.CloseProject.title"),
 				ResourceManager.RB.getString("Shell.Menu.File.CloseProject.mnemonic").charAt(0));
 		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK));
+		item.addActionListener(new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				//closeProject(container);// close all openend project and processes too.
+			}
+		});
 		menu.add(item);
 
 		menu.addSeparator();

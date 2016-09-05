@@ -30,6 +30,16 @@ public class ShellDockableFrameFactory {
         return projectFrame;
     }
     
+    public static DockableFrame clearProjectViewFrame() {
+        if(projectFrame == null)
+            createProjectViewFrame();
+        projectFrame.remove(treeArea);
+        treeArea = Utilities.createScrollPane(new JTextArea());
+        projectFrame.add(treeArea);
+        projectFrame.setPreferredSize(new Dimension(250, 200));
+        return projectFrame;
+    }
+    
     public static DockableFrame createProjectViewFrame() {
         projectFrame = new DockableFrame("Project", ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.SOLUTION));
         projectFrame.getContext().setInitMode(DockContext.STATE_FRAMEDOCKED);

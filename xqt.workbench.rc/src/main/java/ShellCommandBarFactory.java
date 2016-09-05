@@ -15,6 +15,7 @@ import com.jidesoft.swing.JideMenu;
 import com.jidesoft.swing.PersistenceUtils;
 
 import javafx.scene.control.Alert.AlertType;
+import sun.invoke.empty.Empty;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -210,7 +211,8 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK));
 		item.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				//closeProject(container);// close all openend project and processes too.
+				closeAllOpenProject(container);
+				//openDialog(container, JFileChooser.DIRECTORIES_ONLY);
 			}
 		});
 		menu.add(item);
@@ -294,7 +296,9 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
 		item = new JMenuItem("Run");
 		item.setMnemonic('R');
-		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0)); // add Alt+X too
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0)); // add
+																		// Alt+X
+																		// too
 		// item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6,
 		// InputEvent.SHIFT_MASK));
 		// item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1,
@@ -493,5 +497,10 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 
 	public static void runAllOpenProcesses(Container container) {
 		((IShell) container).runAllOpenProcesses();
+	}
+
+	public static void closeAllOpenProject(Container container) {
+		String path="";
+		((IShell) container).openProject(path, true);
 	}
 }

@@ -306,16 +306,10 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 		// InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
 		item.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				if (container instanceof DockableHolder) {
-                    DockingManager dockingManager = ((DockableHolder) container).getDockingManager();
-                    String frameKey = dockingManager.getActiveFrameKey(); //getNextFrame(dockingManager.getActiveFrameKey());
-                    if (frameKey != null) {
-                        //dockingManager.showFrame(frameKey);
-                       //run the script of the active doc!
-                        createRunButton(); // What is a docking management?
-                       
-                    }
-                }
+				//Run the selected script Query.		 
+				this.setEnabled(false);		 
+				runAllOpenProcesses(container);
+				this.setEnabled(true);
 			}
 		});
 		menu.add(item);

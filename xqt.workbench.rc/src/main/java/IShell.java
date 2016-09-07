@@ -24,4 +24,10 @@ public interface IShell {
     void redoChnages();
 
     void runAllOpenProcesses();
+    /**
+	 *  Indicates if get any active document .
+	 * 
+	 *  @return true or false.
+	 */
+    public boolean getActiveDocumentList();
 }

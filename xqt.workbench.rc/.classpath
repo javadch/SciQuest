@@ -29,7 +29,7 @@
 	<classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/jidesoft/jide-treemap/3.6.0/jide-treemap-3.6.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41.jar" sourcepath="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xqt/xqt.api/1.0-SNAPSHOT/xqt.api-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xqt/xqt.api/1.0-SNAPSHOT/xqt.api-1.0-SNAPSHOT.jar" sourcepath="/M2_REPO"/>
 	<classpathentry kind="var" path="M2_REPO/xqt/xqt.runtime/1.0-SNAPSHOT/xqt.runtime-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xqt/xqt.engine.interface/1.0-SNAPSHOT/xqt.engine.interface-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xqt/xqt.model/1.0-SNAPSHOT/xqt.model-1.0-SNAPSHOT.jar"/>

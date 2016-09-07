@@ -32,10 +32,10 @@ public class ProcessExecutionHelper implements ProcessExecutionListener {
         // grammar files
     }
 
-    @Override
+    /*@Override
     public String getProcessPath() {
     	return "";
-    }
+    }*/
     
 	@Override
 	public void executing() {
@@ -71,5 +71,11 @@ public class ProcessExecutionHelper implements ProcessExecutionListener {
 	public void draw(Variable v) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public String getProcessPath(){
+		// Created the by arefin to solve the Inherited implementation error.
+		return "";
 	}
 }

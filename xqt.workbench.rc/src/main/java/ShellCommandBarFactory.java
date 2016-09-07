@@ -212,7 +212,6 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 		item.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				closeAllOpenProject(container);
-				//openDialog(container, JFileChooser.DIRECTORIES_ONLY);
 			}
 		});
 		menu.add(item);
@@ -500,7 +499,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 	}
 
 	public static void closeAllOpenProject(Container container) {
-		String path="";
+		String path = "";
 		((IShell) container).openProject(path, true);
 	}
 }

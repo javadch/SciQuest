@@ -383,7 +383,7 @@ public class EditingPanel extends ResizablePanel implements ProcessExecutionList
 
     }
 
-    @Override
+   /* @Override
     public String getProcessPath() {
     	try{
     		File f = new File(this.getFilePath());
@@ -394,7 +394,7 @@ public class EditingPanel extends ResizablePanel implements ProcessExecutionList
     	} catch(Exception ex){
     		return "";
     	}
-    }
+    }*/
     
 	@Override
 	public void executing() {

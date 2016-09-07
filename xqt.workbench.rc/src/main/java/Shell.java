@@ -153,11 +153,13 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell {
 
 	@Override
 	public void openProject(String projectRootPath, Boolean closeDocuments) {
-
-		if (closeDocuments && projectRootPath.isEmpty()) { // use to clear the project view frame phase.
+		/*
+		 * first checks the project path and clear the project view frame phase
+		 * to close the open project.
+		 */
+		if (closeDocuments && projectRootPath.isEmpty()) {
 			documentManagerPane.closeAll();
 			ShellDockableFrameFactory.clearProjectViewFrame();
-			this.revalidate();
 		} else {
 			activeProjectPath = projectRootPath;
 			FileTreeModel treeModel = new FileTreeModel(new File(projectRootPath));
@@ -165,7 +167,6 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell {
 			tree.setCellRenderer(new FileTreeCellRenderer());
 			tree.setRowHeight(20);
 			tree.setVisibleRowCount(30);
-			// ShellDockableFrameFactory.resetProjectViewFrame();
 			if (closeDocuments)
 				documentManagerPane.closeAll();
 
@@ -193,8 +194,9 @@ public class Shell extends DefaultDockableBarDockableHolder implements IShell {
 			};
 			tree.addMouseListener(ml);
 			ShellDockableFrameFactory.openProjectViewFrame(tree);
-			this.revalidate();
 		}
+		this.revalidate();
+
 	}
 
 	@Override

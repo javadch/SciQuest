@@ -128,6 +128,8 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 		// commandBar.add(createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.NAVIGATE_BACKWARD)));
 		// commandBar.add(createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.NAVIGATE_FORWARD)));
 		commandBar.addSeparator();
+//        JMenu menu = new JideMenu(ResourceManager.RB.getString("Shell.Menu.File.title"));
+//        menu.setMnemonic(ResourceManager.RB.getString("Shell.Menu.File.mnemonic").charAt(0));
 
 		AbstractButton runButton = createSplitButton(ShellIconsFactory.getImageIcon(ShellIconsFactory.Standard.START));
 		runButton.addActionListener(new AbstractAction() {
@@ -262,7 +264,7 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 		item = new JMenuItem("Copy");
 		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
 		menu.add(item);
-
+		
 		item = new JMenuItem("Paste");
 		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK));
 		menu.add(item);
@@ -304,10 +306,16 @@ public class ShellCommandBarFactory extends CommandBarFactory {
 		// InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
 		item.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				// Run the selected script Query.
-				this.setEnabled(false);
-				runAllOpenProcesses(container);
-				this.setEnabled(true);
+				if (container instanceof DockableHolder) {
+                    DockingManager dockingManager = ((DockableHolder) container).getDockingManager();
+                    String frameKey = dockingManager.getActiveFrameKey(); //getNextFrame(dockingManager.getActiveFrameKey());
+                    if (frameKey != null) {
+                        //dockingManager.showFrame(frameKey);
+                       //run the script of the active doc!
+                        createRunButton(); // What is a docking management?
+                       
+                    }
+                }
 			}
 		});
 		menu.add(item);

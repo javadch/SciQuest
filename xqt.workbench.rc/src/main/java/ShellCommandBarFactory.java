@@ -3,18 +3,11 @@ import com.jidesoft.action.CommandBarFactory;
 import com.jidesoft.action.CommandMenuBar;
 import com.jidesoft.action.DefaultDockableBarDockableHolder;
 import com.jidesoft.action.DockableBarContext;
-import com.jidesoft.action.DockableBarManager;
-import com.jidesoft.alert.Alert;
-import com.jidesoft.docking.DockableHolder;
-import com.jidesoft.docking.DockingManager;
-import com.jidesoft.document.DocumentPane;
-import com.jidesoft.document.IDocumentPane;
 import com.jidesoft.status.MemoryStatusBarItem;
 import com.jidesoft.swing.JideBoxLayout;
 import com.jidesoft.swing.JideMenu;
 import com.jidesoft.swing.PersistenceUtils;
 
-import sun.invoke.empty.Empty;
 
 import java.awt.Component;
 import java.awt.Container;

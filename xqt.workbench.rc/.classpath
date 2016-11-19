@@ -59,6 +59,6 @@
 	<classpathentry kind="var" path="M2_REPO/xqt/adapters/xqt.adapters.dbms/1.0-SNAPSHOT/xqt.adapters.dbms-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xqt/xqt.language/1.0-SNAPSHOT/xqt.language-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="/xqt.api"/>
-	<classpathentry kind="lib" path="/usr/lib/jvm/java-8-oracle/lib/tools.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0/lib/tools.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

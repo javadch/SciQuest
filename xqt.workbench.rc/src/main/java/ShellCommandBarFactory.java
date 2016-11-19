@@ -14,7 +14,6 @@ import com.jidesoft.swing.JideBoxLayout;
 import com.jidesoft.swing.JideMenu;
 import com.jidesoft.swing.PersistenceUtils;
 
-import javafx.scene.control.Alert.AlertType;
 import sun.invoke.empty.Empty;
 
 import java.awt.Component;

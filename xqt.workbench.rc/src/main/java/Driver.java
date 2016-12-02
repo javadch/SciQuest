@@ -2,7 +2,7 @@
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.utils.PortingUtils;
 import com.vaiona.commons.logging.LoggerHelper;
-import java.text.MessageFormat;
+import com.vaiona.commons.config.PropertyManager;
 import javax.swing.SwingUtilities;
 
 /*
@@ -18,6 +18,8 @@ import javax.swing.SwingUtilities;
 public class Driver {
     public static void main(String[] args) {
         com.jidesoft.utils.Lm.verifyLicense("Friedrich Schiller University of Jena", "SciQuest", "iBVmHbKikKMgQhcRthIhOwcUROnqer3");
+    	PropertyManager.init("");
+    	LoggerHelper.logInfo("Properties were loaded.");
         SwingUtilities.invokeLater(() -> {
             PortingUtils.prerequisiteChecking();
             LookAndFeelFactory.installDefaultLookAndFeelAndExtension();

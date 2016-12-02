@@ -3,6 +3,10 @@ package xqt.workbench;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import com.vaiona.commons.config.PropertyManager;
+import com.vaiona.commons.logging.LoggerHelper;
+
 import xqt.api.LanguageServicePoint;
 import xqt.model.data.Variable;
 
@@ -16,13 +20,15 @@ public class Driver{
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+    	PropertyManager.init("");
+    	LoggerHelper.logInfo("Properties were loaded.");
     	ProcessExecutionHelper px = new ProcessExecutionHelper();
     	px.execute(args);
     }
 
 
     @SuppressWarnings("unused")
-	private static void processInput() throws FileNotFoundException, IOException {
+	private static void processInput_Del() throws FileNotFoundException, IOException {
         String inputFile = "D:\\javad\\Projects\\XQtProjects\\XQt\\xqt.test\\src\\main\\java\\xqt\\test\\scripts\\testcase1.txt";
         //if ( args.length>0 ) inputFile = args[0];
         try{
